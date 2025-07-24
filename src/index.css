@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jura:wght@300..700&family=Manrope:wght@200..800&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+    --font-jura: "Jura", sans-serif;
+    --font-manrope:  "Manrope", sans-serif;
+    --font-inter:  "Inter", sans-serif;
+    --color-bright-purple: #9A70F5;
+    --color-mint-500: oklch(0.72 0.11 178);
+}
+
+html,
+body {
+    width: 100%;
+    background-color: #000000;
+    color: #EAEAEA;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+@utility flex-center {
+    @apply flex justify-center items-center;
+}
+
+@utility col-center {
+    @apply flex flex-col justify-center items-center;
+}
+
+@utility abs-center {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+}
+
+@utility text-gradient {
+    background: linear-gradient(to right, #9A70F5, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+@layer components {
+    main {
+        @apply w-full overflow-x-hidden;
+    }
+
+    nav {
+        @apply fixed z-50 w-full;
+
+        div {
+            @apply flex md:flex-row flex-col md:justify-between items-center gap-5 py-5 lg:px-0 px-5 container mx-auto;
+        }
+
+        p {
+            @apply font-jura text-3xl -mb-2;
+        }
+
+        a {
+            @apply cursor-pointer text-nowrap md:text-base text-sm;
+        }
+
+        ul {
+            @apply flex-center lg:gap-12 gap-7;
+        }
+    }
+
+    /* .noisy {
+        @apply absolute inset-0 size-full bg-[url("/images/noise.png")];
+    } */
+
+    #hero {
+        @apply relative z-10 min-h-dvh w-full border border-transparent;
+
+        h1 {
+            @apply md:mt-32 mt-40 text-8xl md:text-[20vw] leading-none text-center font-jura;
+        }
+    }
+
+
+}
