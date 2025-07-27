@@ -1,16 +1,13 @@
 // 2. Navbar Component
 export const Navbar = () => {
-  const navLinks = ['Projects', 'Tools','Uses', 'Contact'];
+  const navLinks = ['Home','Projects', 'Tools','Uses','Gallery', 'Contact'];
   return (
-    <nav className="fixed z-5 top-0 left-0 py-5 px-5">
-      <div className="container flex flex-col justify-items-center md:flex-row border-1 border-[#454545] rounded-3xl backdrop-blur-xl px-4">
-        <a href="/" className="text-2xl font-jura font-bold text-bright-purple tracking-tighter" >
-          Notsoshant
-        </a>
-        <ul>
+    <nav className="fixed z-40 top-0 left-0 py-5 px-5">
+        <div className="w-fit mx-auto hidden md:flex justify-center border-1 px-4 border-[#454545] rounded-full backdrop-blur-xl shadow-[0_0px_20px_rgba(255,255,255,0.25)] ">
+           <ul>
           {navLinks.map((link) => (
-            <li key={link} className="z-10 p-1 uppercase">
-              <a href={`#${link.toLowerCase()}`} className="text-sm font-medium  text-neutral-300 transition-colors hover:text-white">
+            <li key={link} className="z-10 uppercase">
+              <a href={`#${link.toLowerCase()}`} className="text-sm font-medium text-neutral-300 transition-colors hover:text-bright-purple hover: font-bold ">
                 {link}
               </a>
             </li>

@@ -7,7 +7,6 @@
     --font-manrope:  "Manrope", sans-serif;
     --font-inter:  "Inter", sans-serif;
     --color-bright-purple: #9A70F5;
-    --color-mint-500: oklch(0.72 0.11 178);
 }
 
 html,
@@ -36,6 +35,7 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    
 }
 
 @layer components {
@@ -63,15 +63,12 @@ body {
         }
     }
 
-    /* .noisy {
-        @apply absolute inset-0 size-full bg-[url("/images/noise.png")];
-    } */
 
     #hero {
-        @apply relative z-10 min-h-dvh w-full border border-transparent;
+        @apply relative z-10 min-h-dvh w-full;
 
         h1 {
-            @apply md:mt-32 mt-40 text-8xl md:text-[20vw] leading-none text-center font-jura;
+            @apply  text-4xl md:text-7xl md:mb-1.5 text-gradient text-center font-jura pb-2.5;
         }
     }
 
