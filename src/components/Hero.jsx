@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Button from './Button';
+import MagneticButton from './MagneticButton';
 export const Hero = () => {
   return (
     <section id="hero" className="flex flex-col justify-center items-center min-h-screen w-full px-5 text-center">
@@ -10,6 +12,9 @@ export const Hero = () => {
         <p className='md:text-xl pt-2'>
           I build beautiful, responsive, and performant web applications that solve real-world problems and provide exceptional user experiences.
         </p>
+        <MagneticButton>
+        <Button/>
+        </MagneticButton>
       </div>
     </section>
   );

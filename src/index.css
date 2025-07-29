@@ -6,7 +6,9 @@
     --font-jura: "Jura", sans-serif;
     --font-manrope:  "Manrope", sans-serif;
     --font-inter:  "Inter", sans-serif;
+
     --color-bright-purple: #9A70F5;
+    --color-white:#EAEAEA;
 }
 
 html,
@@ -35,7 +37,7 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    
+
 }
 
 @layer components {

@@ -12,8 +12,6 @@ const App = () => {
           <Hero />
           <About />
           </VideoBackground>
-
-          {/* ... other sections go here */}
         </main>
     </>
   );

@@ -18,11 +18,11 @@ export const VideoBackground = ({ children }) => {
         className="fixed top-0 left-0 z-[1] md:h-full h-[30vh] w-full object-cover"
       >
         <source
-          src="./public/vid.mp4"
+          src="./public/videos/vid.mp4"
         />
         Your browser does not support the video tag.
       </video>
-     <div className="fixed top-0 left-0 z-2 h-full w-full bg-black/65"></div> 
+     <div className="fixed top-0 left-0 z-2 h-full w-full bg-black/65"></div>
       <div className="relative z-10">
         {children}
       </div>
