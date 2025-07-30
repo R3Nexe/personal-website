@@ -1,3 +1,5 @@
+import MagneticButton from "./MagneticButton";
+import SocialIcon from "./socialMediaIcons";
 export const About = () => {
   return (
     <section id="about" className="w-full py-20 lg:py-100">
@@ -10,6 +12,39 @@ export const About = () => {
           <p className="text-lg leading-relaxed text-neutral-300">
             When I'm not coding, you can find me exploring the latest tech trends, contributing to open-source projects, or brewing the perfect cup of coffee.
           </p>
+          <p>Find me here</p>
+          <div className="flex flex-row justify-center gap-7 ">
+            <MagneticButton>
+           <SocialIcon
+           href={'https://github.com/R3Nexe'}
+           src={'public/icons/github.svg'}
+           >
+           </SocialIcon>
+            </MagneticButton>
+
+            <MagneticButton>
+           <SocialIcon
+           href={'https://www.linkedin.com/in/nishant-kumar-b91a96325/'}
+           src={'public/icons/linkedin.svg'}
+           >
+           </SocialIcon>
+            </MagneticButton>
+            <MagneticButton>
+           <SocialIcon
+           href={'https://www.instagram.com/notsoshaant_/'}
+           src={'public/icons/instagram.svg'}
+           >
+           </SocialIcon>
+            </MagneticButton>
+            <MagneticButton>
+           <SocialIcon
+           href={'https://www.artstation.com/r3nexe'}
+           src={'public/icons/artstation.svg'}
+           >
+           </SocialIcon>
+            </MagneticButton>
+
+          </div>
         </div>
       </div>
     </section>

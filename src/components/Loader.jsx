@@ -1,39 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-
-export const Loader = () => {
-  // Animation for the loader to fade out
-  const loaderVariants = {
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: 1.0, // Control the speed of the fade out
-        ease: 'easeInOut',
-      },
-    },
-  };
-
+const Loader = () => {
   return (
     <motion.div
-      className="fixed inset-0 z-[100] bg-black"
-      variants={loaderVariants}
-      exit="exit" // Triggered by AnimatePresence on component unmount
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black"
+      // Add the exit prop
+      exit={{ opacity: 0, transition: { duration: 1, ease: 'easeInOut' } }}
     >
-      {/* The video will cover the entire screen.
-        - `autoPlay`: Starts the video automatically.
-        - `muted`: Required for autoplay in most browsers.
-        - `loop`: Loops the video if it's short.
-        - `playsInline`: Important for mobile browsers.
-      */}
-      <video
-        src="public/Timeline 1.mov"
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="h-full w-full object-cover"
-      ></video>
+      <motion.div
+        className="w-16 h-16 bg-white rounded-full"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [1, 0.8, 1],
+        }}
+        transition={{
+          duration: 1.5,
+          ease: 'easeInOut',
+          repeat: 2,
+        }}
+      />
     </motion.div>
   );
 };
+
+export default Loader;

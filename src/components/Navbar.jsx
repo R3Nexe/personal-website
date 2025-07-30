@@ -7,7 +7,7 @@ export const Navbar = () => {
            <ul>
           {navLinks.map((link) => (
             <li key={link} className="z-10 uppercase">
-              <a href={`#${link.toLowerCase()}`} className="text-sm font-medium text-neutral-300 transition-colors hover:text-bright-purple hover: font-bold ">
+              <a href={`#${link.toLowerCase()}`} className="text-sm font-medium text-neutral-300 transition-colors hover:text-bright-purple hover:font-bold ">
                 {link}
               </a>
             </li>

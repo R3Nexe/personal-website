@@ -4,9 +4,8 @@ import { easeIn, motion, scale } from 'framer-motion'
 const Button = () => {
   const [ isHover, setisHover ] = useState(false)
   return (
-    <div className='flex justify-center pt-4 gap-3'
-    >
-      <motion.div className='flex justify-around relative overflow-clip border-1 p-2 rounded-full '
+    <div className='flex justify-center pt-3'>
+      <motion.div className='flex relative overflow-clip border-1 p-2 rounded-full '
         onMouseEnter={(e) => setisHover(true)}
         onMouseLeave={(e) => setisHover(false)}
         animate={{
@@ -14,16 +13,18 @@ const Button = () => {
         }}
         transition={{ease:"easeIn"}}
       >
-        <motion.div className='absolute size-2 bg-bright-purple'
+        <motion.div className='absolute size-2 bg-bright-purple rounded-full'
+          initial={{opacity:0}}
           animate={{
+            width: isHover? 40:0,
             scale: isHover ? 40 : 1,
-            opacity: isHover?1:0
+            opacity: isHover?1:1,
           }}
-          transition={{duration:.2,
-            ease:"easeIn"
+          transition={{duration:.5,
+            ease:"easeInOut"
           }}></motion.div>
         <motion.a
-        className='text-white z-5'
+        className='text-white z-5 '
           href="public/resume/resume.pdf" // Make sure your PDF is in the `public` folder
           target="_blank"
           rel="noopener noreferrer"
