@@ -4,11 +4,13 @@
 
 @theme {
     --font-jura: "Jura", sans-serif;
-    --font-manrope:  "Manrope", sans-serif;
-    --font-inter:  "Inter", sans-serif;
+    --font-manrope: "Manrope", sans-serif;
+    --font-inter: "Inter", sans-serif;
 
     --color-bright-purple: #9A70F5;
-    --color-white:#EAEAEA;
+    --color-white: #EAEAEA;
+    --color-green: #82FF9E;
+    --color-bright-green: #64F58D;
 }
 
 html,
@@ -34,6 +36,13 @@ body {
 
 @utility text-gradient {
     background: linear-gradient(to right, #9A70F5, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+}
+@utility text-gradient-1 {
+    background: linear-gradient(to left, #64F58D, #ffffff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -70,9 +79,14 @@ body {
         @apply relative z-10 min-h-dvh w-full;
 
         h1 {
-            @apply  text-4xl md:text-7xl md:mb-1.5 text-gradient text-center font-jura pb-2.5;
+            @apply text-4xl md:text-7xl md:mb-1.5 text-gradient text-center font-jura pb-2.5;
         }
     }
 
+    #about {
+        span {
+            @apply font-bold text-xl hover:text-gradient transition-all duration-300
+        }
+    }
 
 }

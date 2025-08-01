@@ -4,14 +4,14 @@ import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { VideoBackground } from './components/VideoBg';
 const App = () => {
+
   return (
     <>
         <main>
+          <VideoBackground/>
           <Navbar />
-          <VideoBackground>
           <Hero />
           <About />
-          </VideoBackground>
         </main>
     </>
   );
