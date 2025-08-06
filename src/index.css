@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jura:wght@300..700&family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend+Mega:wght@100..900&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
 
 @theme {
-    --font-jura: "Jura", sans-serif;
-    --font-manrope: "Manrope", sans-serif;
-    --font-inter: "Inter", sans-serif;
+    --font-head: "Sansation", sans-serif;
+    --font-sub-head: "Urbanist", sans-serif;
+    --font-body: "Inter", sans-serif;
 
     --color-bright-purple: #9A70F5;
     --color-white: #EAEAEA;
@@ -62,7 +62,7 @@ body {
         }
 
         p {
-            @apply font-jura text-3xl -mb-2;
+            @apply font-sub-head text-3xl -mb-2;
         }
 
         a {
@@ -79,13 +79,19 @@ body {
         @apply relative z-10 min-h-dvh w-full;
 
         h1 {
-            @apply text-4xl md:text-7xl md:mb-1.5 text-gradient text-center font-jura pb-2.5;
+            @apply text-4xl md:text-7xl md:mb-1.5 text-gradient text-center font-head pb-2.5;
         }
     }
 
     #about {
+        h2{
+            @apply font-head font-medium
+        }
+        p{
+            @apply font-body
+        }
         span {
-            @apply font-bold text-xl hover:text-gradient transition-all duration-300
+            @apply  font-bold text-xl hover:text-gradient transition-all duration-300
         }
     }
 
