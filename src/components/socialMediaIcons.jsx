@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion';
 
-const SocialIcon = ({ href, src, alt }) => {
+const SocialIcon = ({ href, src, alt ,className}) => {
   return (
     <motion.a
       href={href}
@@ -15,7 +15,7 @@ const SocialIcon = ({ href, src, alt }) => {
       <img
         src={src}
         alt={alt}
-        className="w-8 invert h-8" // Adjust size with Tailwind as needed
+        className={className} // Adjust size with Tailwind as needed
       />
     </motion.a>
   );

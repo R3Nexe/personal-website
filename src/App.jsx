@@ -7,8 +7,8 @@ const App = () => {
 
   return (
     <>
+        <VideoBackground/>
         <main>
-          <VideoBackground/>
           <Navbar />
           <Hero />
           <About />

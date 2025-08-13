@@ -7,7 +7,7 @@ export const VideoBackground = () => {
   const rotateValue = useTransform(scrollYProgress, [0, 1], [0, -15]);
   return (
     <div
-      className="fixed h-screen w-full top-0 left-0 z-0">
+      className="fixed h-screen w-full top-0 left-0 z-[0]">
       <motion.video
         style={{ translateX: translateValue, scale: scaleValue, rotate: rotateValue }}
         initial={{ scale: 0, rotate: -15 }}
