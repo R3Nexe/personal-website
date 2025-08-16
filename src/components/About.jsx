@@ -43,7 +43,7 @@ export const About = () => {
       className="flex flex-col justify-center items-center min-h-screen w-full px-5 text-center bg-transparent"
     >
       <h2 className="text-4xl md:text-8xl z-2 mb-6">About Me</h2>
-      <div className="w-[50vw] z-2">
+      <div className="md:w-[60vw] lg:w-60vw w-100vw z-2">
         <div class="grid grid-cols-8 grid-rows-4  gap-2 ">
           <div
             className={`${cardClasses} flex flex-col items-start col-span-3`}
@@ -74,9 +74,7 @@ export const About = () => {
           </div>
           <div
             className={`${cardClasses} pt-5 col-span-3 row-span-4 flex flex-col place-content-end gap-7`}
-          >
-
-          </div>
+          ></div>
           <div className={`${cardClasses} col-span-2 row-span-2`}>
             <MagneticButton>
               <SocialIcon
@@ -92,19 +90,21 @@ export const About = () => {
               <div className="w-full flex-center gap-2 pb-2 mb-2">
                 <button
                   onClick={() => setActiveTab("education")}
-                  className={`px-3 py-1 rounded-full text-sm font-semibold ${activeTab === "education"
+                  className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                    activeTab === "education"
                       ? "bg-bright-purple"
                       : "bg-white/10"
-                    }`}
+                  }`}
                 >
                   Education
                 </button>
                 <button
                   onClick={() => setActiveTab("experience")}
-                  className={`px-3 py-1 rounded-full text-sm font-semibold ${activeTab === "experience"
+                  className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                    activeTab === "experience"
                       ? "bg-bright-purple"
                       : "bg-white/10"
-                    }`}
+                  }`}
                 >
                   Experience
                 </button>
