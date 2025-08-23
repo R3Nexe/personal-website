@@ -1,0 +1,104 @@
+[
+  {
+    "title": "M4 MacBook Air",
+    "desc": "My dailiy drive, for Webdev, Python Automation and scripting, and movie watching",
+    "link": "",
+    "categories": ["Hardware", "EveryDay Carry", "Development"]
+  },
+  {
+    "title": "Lenovo Ideapad(2020)",
+    "desc": "Former Daily driver, now used for Gaming",
+    "link": "",
+    "categories": ["Hardware", "Gaming"]
+  },
+  {
+    "title": "Samsung Galaxy S23 Ultra",
+    "desc": "My primary Phone, for communication, photography, and Procrastination",
+    "link": "https://www.samsung.com/in/smartphones/galaxy-s23-ultra/buy/",
+    "categories": ["Hardware", "EveryDay Carry"]
+  },
+  {
+    "title": "CosmicByte Mechanical Keyboard",
+    "desc": "Blue switches, RGB, Foam and tape Modded",
+    "link": "",
+    "categories": ["Hardware", "Gaming", "Productivity"]
+  },
+  {
+    "title": "Cable Creations Usb Dock",
+    "desc": "My dailiy drive, for Webdev, Python Automation and scripting, and movie watching",
+    "link": "",
+    "categories": ["Hardware", "EveryDay Carry", "Productivity"]
+  },
+  {
+    "title": "Samsung 2TB External SSD",
+    "desc": "My dailiy drive, for Webdev, Python Automation and scripting, and movie watching",
+    "link": "https://www.samsung.com/in/memory-storage/portable-ssd/portable-ssd-t7-non-touch-2tb-gray-mu-pc2t0t-ww/",
+    "categories": ["Hardware", "Productivity"]
+  },
+  {
+    "title": "Logitech G304 Mouse",
+    "desc": "My personal Favourite, for Gaming and Productivity",
+    "link": "https://www.logitechg.com/en-in/products/gaming-mice/g304-lightspeed-wireless-gaming-mouse.html",
+    "categories": ["Hardware", "Gaming", "Productivity"]
+  },
+  {
+    "title": "Sony WH-1000XM5",
+    "desc": "Top Notch Noise Cancelling, For music and focus",
+    "link": "https://www.amazon.in/Sony-WH-1000XM5-Wireless-Cancelling-Headphones/dp/B09XS7JWHH?th=1",
+    "categories": ["Hardware", "EveryDay Carry", "Productivity"]
+  },
+  {
+    "title": "Shure Srh440-Bk",
+    "desc": "Top Notch Noise Cancelling, For Video Editing and Gaming",
+    "link": "https://www.amazon.in/Shure-SRH440-Professional-Studio-Headphones/dp/B002DP1FTU?th=1",
+    "categories": ["Hardware", "Gaming", "Productivity"]
+  },
+  {
+    "title": "VS Code",
+    "desc": "My first and Primary Code Editor, For Web Development and Python Automation",
+    "link": "",
+    "categories": ["Software", "Development"]
+  },
+  {
+    "title": "Zed",
+    "desc": "Currently exploring and experimenting with this new Rust-based code editor, cuz its faster?? ig",
+    "link": "",
+    "categories": ["Software", "Development"]
+  },
+  {
+    "title": "Raycast",
+    "desc": "My favourite productivity tool for Mac, apps, links, calculations, only a couple clicks away",
+    "link": "",
+    "categories": ["Software", "Productivity"]
+  },
+  {
+    "title": "Al Dente",
+    "desc": "for Maac to cap Batter at 85%",
+    "link": "",
+    "categories": ["Software", "Productivity"]
+  },
+  {
+    "title": "Karabiner Elements",
+    "desc": "I use it to remap my keys and shortcuts",
+    "link": "",
+    "categories": ["Software", "Productivity"]
+  },
+  {
+    "title": "1Password",
+    "desc": "one-stop solution for password management",
+    "link": "",
+    "categories": ["Software", "Security"]
+  },
+  {
+    "title": "Blender",
+    "desc": "My go-to open source 3D modeeling and animation software",
+    "link": "",
+    "categories": ["Software", "Art"]
+  },
+  {
+    "title": "Figma",
+    "desc": "i create Designs mockups for my ideas here",
+    "link": "",
+    "categories": ["Software", "Art"]
+  }
+]

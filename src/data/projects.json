@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Fraud Detection Web App",
+    "desc": "A python based web app that detects fraud in transactions using XGBoost machine learning model, and streamlit for deployment",
+    "gitLink": "https://github.com/R3Nexe/Fraud_detection",
+    "liveLink": "https://fraudetection-app.streamlit.app/",
+    "categories": ["Web", "Machine Learning"]
+  },
+  {
+    "title": "Hand-Tracking application",
+    "desc": "a python based hand tracking application using mediapipe and opencv",
+    "gitLink": "https://github.com/R3Nexe/Handtracking_python",
+    "liveLink": null,
+    "categories": ["Machine Learning", "Computer Vision"]
+  }
+]

@@ -9,13 +9,14 @@ export const About = () => {
     <ul className="text-sm text-gray-300 space-y-9 text-start">
       <li className="text-base ">
         Institute of Technical Research and Education, Bhubaneshwar
-        (2024–present) — GPA: 9.76/10, B.Tech
+        (2024–present) — GPA: 9.68/10, B.Tech
       </li>
       <li className="text-base ">
         Mother's Public School, Bhubaneshwar (Higher Secondary CBSE) — 86%
       </li>
       <li className="text-base ">
         Don Bosco Academy, Patna (Secondary ICSE) — 96%
+      
       </li>
     </ul>
   );
@@ -34,7 +35,6 @@ export const About = () => {
       </li>
     </ul>
   );
-
   const cardClasses =
     "bg-[#D9D9D9]/5 border-1 px-4 border-[#454545] hover:bg-[#D9D9D9]/25 hover:border-2 hover:border-bright-purple transition-all duration:500 rounded-xl hover:backdrop-blur-xl p-4 flex items-center justify-center text-white ";
   return (
@@ -44,7 +44,7 @@ export const About = () => {
     >
       <h2 className="text-4xl md:text-8xl z-2 mb-6">About Me</h2>
       <div className="md:w-[60vw] lg:w-60vw w-100vw z-2">
-        <div class="grid grid-cols-8 grid-rows-4  gap-2 ">
+        <div className="grid grid-cols-8 grid-rows-4  gap-2 ">
           <div
             className={`${cardClasses} flex flex-col items-start col-span-3`}
           >
