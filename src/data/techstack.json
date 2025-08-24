@@ -1,0 +1,86 @@
+[
+    {
+        "icon":"icons/css3.svg",
+        "name":"CSS",
+        "desc":"Styling and layout for web pages",
+        "type":"language"
+    },
+    {
+        "icon":"icons/html5.svg",
+        "name":"HTML",
+        "desc":"Markup for structuring web pages",
+        "type":"language"
+    },
+    {
+        "icon":"icons/java.svg",
+        "name":"Java",
+        "desc":"Cross-platform OOP language for apps",
+        "type":"language"
+    },
+    {
+        "icon":"icons/javascript.svg",
+        "name":"JavaScript",
+        "desc":"Logic and interactivity for the web",
+        "type":"language"
+    },
+    {
+        "icon":"icons/python.svg",
+        "name":"Python",
+        "desc":"Scripting, automation, and data science",
+        "type":"language"
+    },
+    {
+        "icon":"icons/pandas.svg",
+        "name":"Pandas",
+        "desc":"Data manipulation and analysis in Python",
+        "type":"library"
+    },
+    {
+        "icon":"icons/react.svg",
+        "name":"React",
+        "desc":"Library for building UIs",
+        "type":"library"
+    },
+    {
+        "icon":"icons/pytorch.svg",
+        "name":"PyTorch",
+        "desc":"Deep learning framework",
+        "type":"framework"
+    },
+    {
+        "icon":"icons/tailwind.svg",
+        "name":"Tailwind CSS",
+        "desc":"Utility-first CSS framework",
+        "type":"framework"
+    },
+    {
+        "icon":"icons/nodejs.svg",
+        "name":"Node.js",
+        "desc":"JavaScript runtime for backend development",
+        "type":"framework"
+    },
+    {
+        "icon":"icons/blender.svg",
+        "name":"Blender",
+        "desc":"3D modeling, rendering, and animation",
+        "type":"software"
+    },
+    {
+        "icon":"icons/figma.svg",
+        "name":"Figma",
+        "desc":"UI/UX design and prototyping tool",
+        "type":"software"
+    },
+    {
+        "icon":"icons/jupyter.svg",
+        "name":"Jupyter Notebooks",
+        "desc":"Interactive coding for data analysis",
+        "type":"software"
+    },
+    {
+        "icon":"icons/vscode.svg",
+        "name":"VS Code",
+        "desc":"Lightweight code editor",
+        "type":"software"
+    }
+]
