@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Button from "../components/Button";
 import RotatingText from "../components/RotatingText";
-import { About } from "../components/About"; // 👈 import About component
+import { About } from "../components/About"; 
 import { VideoBackground } from "../components/VideoBg";
 
 const Home = () => {
@@ -11,9 +11,9 @@ const Home = () => {
       {/* Hero Section */}
       <motion.section
         id="hero"
-        className="flex flex-col justify-center items-center min-h-screen w-full px-5 text-center"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
+        className="flex flex-col justify-center items-center h-screen w-full px-5 text-center"
+        initial={{ opacity: 0, scale: 0.7,translateY:-100 }}
+        animate={{ opacity: 1, scale: 1, translateY:0 }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
         <div className="max-w-4xl">
@@ -58,4 +58,4 @@ const Home = () => {
   );
 };
 
-export default Home; // 👈 important, use default export
+export default Home;

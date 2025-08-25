@@ -3,13 +3,15 @@
     "title": "M4 MacBook Air",
     "desc": "My dailiy drive, for Webdev, Python Automation and scripting, and movie watching",
     "link": "",
-    "categories": ["Hardware", "EveryDay Carry", "Development"]
+    "categories": ["Hardware", "EveryDay Carry", "Development"],
+    "img":"public/photos/mac.jpg"
   },
   {
     "title": "Lenovo Ideapad(2020)",
     "desc": "Former Daily driver, now used for Gaming",
     "link": "",
-    "categories": ["Hardware", "Gaming"]
+    "categories": ["Hardware", "Gaming"],
+    "img":""
   },
   {
     "title": "Samsung Galaxy S23 Ultra",
@@ -21,37 +23,43 @@
     "title": "CosmicByte Mechanical Keyboard",
     "desc": "Blue switches, RGB, Foam and tape Modded",
     "link": "",
-    "categories": ["Hardware", "Gaming", "Productivity"]
+    "categories": ["Hardware", "Gaming", "Productivity"],
+     "img":"public/photos/keyb.jpg"
   },
   {
     "title": "Cable Creations Usb Dock",
     "desc": "My dailiy drive, for Webdev, Python Automation and scripting, and movie watching",
     "link": "",
-    "categories": ["Hardware", "EveryDay Carry", "Productivity"]
+    "categories": ["Hardware", "EveryDay Carry", "Productivity"],
+      "img":"public/photos/dock.jpg"
   },
   {
     "title": "Samsung 2TB External SSD",
     "desc": "My dailiy drive, for Webdev, Python Automation and scripting, and movie watching",
     "link": "https://www.samsung.com/in/memory-storage/portable-ssd/portable-ssd-t7-non-touch-2tb-gray-mu-pc2t0t-ww/",
-    "categories": ["Hardware", "Productivity"]
+    "categories": ["Hardware", "Productivity"],
+     "img":"public/photos/ssd.jpg"
   },
   {
     "title": "Logitech G304 Mouse",
     "desc": "My personal Favourite, for Gaming and Productivity",
     "link": "https://www.logitechg.com/en-in/products/gaming-mice/g304-lightspeed-wireless-gaming-mouse.html",
-    "categories": ["Hardware", "Gaming", "Productivity"]
+    "categories": ["Hardware", "Gaming", "Productivity"],
+     "img":"public/photos/mouse.jpg"
   },
   {
     "title": "Sony WH-1000XM5",
     "desc": "Top Notch Noise Cancelling, For music and focus",
     "link": "https://www.amazon.in/Sony-WH-1000XM5-Wireless-Cancelling-Headphones/dp/B09XS7JWHH?th=1",
-    "categories": ["Hardware", "EveryDay Carry", "Productivity"]
+    "categories": ["Hardware", "EveryDay Carry", "Productivity"],
+ "img":"public/photos/headphone.jpg"
   },
   {
     "title": "Shure Srh440-Bk",
     "desc": "Top Notch Noise Cancelling, For Video Editing and Gaming",
     "link": "https://www.amazon.in/Shure-SRH440-Professional-Studio-Headphones/dp/B002DP1FTU?th=1",
-    "categories": ["Hardware", "Gaming", "Productivity"]
+    "categories": ["Hardware", "Gaming", "Productivity"],
+ "img":"public/photos/headset.jpg"
   },
   {
     "title": "VS Code",
