@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
+import Chatbot from "./components/Chatbot";
 
 // Pages
 import Home from "./pages/Home";
@@ -14,6 +15,7 @@ const App = () => {
     <Router>
       <main>
         <Navbar />
+        <Chatbot />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />

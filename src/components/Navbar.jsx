@@ -48,9 +48,9 @@ export const Navbar = () => {
                 <X className="size-10"></X>
                 </button>
             </div>
-            <ul className="flex flex-col mt-4 gap-2">
+            <ul className="flex flex-col gap-4">
               {navLinks.map((link) => (
-                <li key={link.name} className="uppercase text-9xl">
+                <li key={link.name} className="uppercase text-8xl">
                   <Link
                     to={link.path}
                     className="font-medium text-neutral-300 transition-colors hover:text-bright-purple hover:font-bold"

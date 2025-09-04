@@ -43,7 +43,7 @@ export const About = () => {
   return (
     <section
       id="about"
-      className="flex flex-col justify-center items-center min-h-screen w-full px-4 sm:px-5 text-center"
+      className="flex flex-col justify-center items-center min-h-screen w-full px-4 mb-8 sm:px-5 text-center"
     >
       <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl z-2 mb-6">About Me</h2>
       <div className="w-full max-w-7xl z-2">
