@@ -1,7 +1,7 @@
 import { useState } from "react";
 import tools from "../data/use.json";
 import Card from "../components/Card";
-import { motion, scale } from "framer-motion";
+import { motion } from "framer-motion";
 
 const categories = [
   "Show all",

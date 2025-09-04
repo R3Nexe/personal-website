@@ -1,4 +1,4 @@
-const Gallary = () => {
+const Gallery = () => {
   return (
     <section className="w-full h-screen text-center items-center justify-center">
       <div className="my-[45vh]">
@@ -7,4 +7,4 @@ const Gallary = () => {
     </section>
   );
 };
-export default Gallary;
+export default Gallery;
