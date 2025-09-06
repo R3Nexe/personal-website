@@ -1,36 +1,170 @@
 import { useState } from "react";
 
+// Error logging utility for chatbot operations
+const logChatbotError = (context, error, additionalInfo = {}) => {
+  const timestamp = new Date().toISOString();
+  const errorInfo = {
+    timestamp,
+    context,
+    error: error.message || error,
+    stack: error.stack,
+    ...additionalInfo
+  };
+
+  console.error(`🤖 CHATBOT ERROR [${context}]:`, errorInfo);
+};
+
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const sendMessage = async () => {
-                if (!input.trim()) return;
+    // Input validation
+    if (!input || !input.trim()) {
+      logChatbotError('EMPTY_INPUT', new Error('User attempted to send empty message'), {
+        severity: 'LOW',
+        impact: 'No action taken',
+        inputValue: input,
+        inputLength: input?.length || 0,
+        solution: 'User should enter a message before sending'
+      });
+      return;
+    }
 
-                // Add user message immediately
-                setMessages((prev) => [...prev, { role: "user", text: input }]);
+    // Prevent multiple simultaneous requests
+    if (isLoading) {
+      logChatbotError('DUPLICATE_REQUEST', new Error('User attempted to send message while another is processing'), {
+        severity: 'LOW',
+        impact: 'Request ignored to prevent race conditions',
+        currentInput: input,
+        solution: 'Wait for current request to complete'
+      });
+      return;
+    }
 
-                // Clear input
-                const userInput = input;
-                setInput("");
+    setIsLoading(true);
 
-                try {
-                  const res = await fetch("http://localhost:5000/chat", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ query: userInput }),
-                  });
+    // Add user message immediately
+    const userMessage = { role: "user", text: input.trim() };
+    setMessages((prev) => [...prev, userMessage]);
 
-                  const data = await res.json();
+    // Clear input
+    const userInput = input.trim();
+    setInput("");
 
-                  // Add bot response (only if backend exists)
-                  setMessages((prev) => [...prev, { role: "bot", text: data.answer }]);
-                } catch (err) {
-                  // For now, simulate a bot reply when backend is missing
-                  setMessages((prev) => [...prev, { role: "bot", text: "⚠️ Backend not connected yet!" }]);
-                }
-              };
+    try {
+      // Validate backend URL
+      const backendUrl = "http://localhost:5000/chat";
+      if (!backendUrl.startsWith('http')) {
+        throw new Error('Invalid backend URL format');
+      }
+
+      logChatbotError('API_REQUEST_START', null, {
+        severity: 'INFO',
+        impact: 'Sending request to backend',
+        backendUrl,
+        messageLength: userInput.length,
+        messagePreview: userInput.substring(0, 50) + (userInput.length > 50 ? '...' : '')
+      });
+
+      const res = await fetch(backendUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({ query: userInput }),
+      });
+
+      // Check if response is ok
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errorText || res.statusText}`);
+      }
+
+      // Validate response content type
+      const contentType = res.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error(`Expected JSON response, got: ${contentType}`);
+      }
+
+      const data = await res.json();
+
+      // Validate response structure
+      if (!data || typeof data !== 'object') {
+        throw new Error('Invalid response format: expected object');
+      }
+
+      if (!data.answer || typeof data.answer !== 'string') {
+        logChatbotError('INVALID_RESPONSE_STRUCTURE', new Error('Response missing or invalid answer field'), {
+          severity: 'HIGH',
+          impact: 'Cannot display bot response',
+          responseData: data,
+          solution: 'Backend should return { answer: "string" } format'
+        });
+
+        // Add fallback message
+        setMessages((prev) => [...prev, {
+          role: "bot",
+          text: "⚠️ Received invalid response from server. Please try again."
+        }]);
+        return;
+      }
+
+      // Add bot response
+      setMessages((prev) => [...prev, { role: "bot", text: data.answer }]);
+
+      console.log(`✅ Chatbot response received successfully for query: "${userInput.substring(0, 30)}..."`);
+
+    } catch (err) {
+      // Determine error type and provide appropriate user feedback
+      let userMessage = "⚠️ Backend not connected yet!";
+      let errorSeverity = 'MEDIUM';
+
+      if (err.name === 'TypeError' && err.message.includes('fetch')) {
+        errorSeverity = 'HIGH';
+        userMessage = "⚠️ Cannot connect to backend server. Please check if it's running.";
+        logChatbotError('NETWORK_ERROR', err, {
+          severity: errorSeverity,
+          impact: 'Cannot communicate with backend',
+          backendUrl: "http://localhost:5000/chat",
+          errorType: 'Network/Fetch Error',
+          solution: 'Ensure backend server is running on localhost:5000'
+        });
+      } else if (err.message.includes('HTTP')) {
+        errorSeverity = 'HIGH';
+        userMessage = `⚠️ Server error: ${err.message}`;
+        logChatbotError('HTTP_ERROR', err, {
+          severity: errorSeverity,
+          impact: 'Backend server returned error',
+          httpStatus: err.message.match(/HTTP (\d+)/)?.[1],
+          solution: 'Check backend server logs and ensure it\'s handling requests properly'
+        });
+      } else if (err.message.includes('JSON')) {
+        errorSeverity = 'HIGH';
+        userMessage = "⚠️ Invalid response format from server.";
+        logChatbotError('JSON_PARSE_ERROR', err, {
+          severity: errorSeverity,
+          impact: 'Cannot parse server response',
+          solution: 'Backend should return valid JSON with { answer: "string" } format'
+        });
+      } else {
+        logChatbotError('UNEXPECTED_ERROR', err, {
+          severity: 'HIGH',
+          impact: 'Unexpected error occurred',
+          errorType: err.constructor.name,
+          solution: 'Check browser console and backend server for more details'
+        });
+      }
+
+      // Add error message to chat
+      setMessages((prev) => [...prev, { role: "bot", text: userMessage }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -49,7 +183,7 @@ const Chatbot = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-20 z-20 right-6 md:w-[25vw] md:h-[60vh] w-[90vw] h-[50dvh] bg-white/20 backdrop-blur-3xl border-2 border-bright-purple/50 rounded-lg shadow-xl flex flex-col animate-fadeIn">
+        <div className="fixed bottom-20 z-20 right-6 md:w-[25vw] md:h-[60vh] w-[90vw] h-[50dvh] bg-gradient-to-b to-white/20 from-bright-purple/20 backdrop-blur-3xl border-2 border-bright-purple/50 rounded-lg shadow-xl flex flex-col animate-fadeIn">
           {/* Header */}
           <div className="bg-bright-purple text-white px-4 py-2 flex justify-between items-center rounded-t-lg">
             <span className="font-semibold">Chatbot</span>
@@ -98,9 +232,17 @@ const Chatbot = () => {
             />
             <button
               onClick={sendMessage}
-              className="ml-2 px-3 py-1 bg-bright-green text-black rounded-lg  hover:scale-120 transition duration-300"
+              disabled={isLoading}
+              className={`ml-2 px-3 py-1 rounded-lg transition duration-300 ${
+                isLoading
+                  ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
+                  : 'bg-bright-green text-black hover:scale-120'
+              }`}
             >
-              ➤
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+  <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+</svg>
+
             </button>
           </div>
         </div>

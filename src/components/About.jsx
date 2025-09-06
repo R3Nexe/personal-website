@@ -1,14 +1,139 @@
 import MagneticButton from "./MagneticButton";
 import SocialIcon from "./socialMediaIcons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import tech from "../data/techstack.json";
+import { publicUrl } from "../lib/storage";
+
+// Error logging utility for About component
+const logAboutError = (context, error, additionalInfo = {}) => {
+  const timestamp = new Date().toISOString();
+  const errorInfo = {
+    timestamp,
+    context,
+    error: error.message || error,
+    stack: error.stack,
+    ...additionalInfo
+  };
+
+  console.error(`👤 ABOUT ERROR [${context}]:`, errorInfo);
+};
 
 export const About = () => {
-  const language = tech.filter((t) => t.type === "language");
-  const library = tech.filter((t) => t.type === "library");
-  const framework = tech.filter((t) => t.type === "framework");
-  const software = tech.filter((t) => t.type === "software");
+  const [techData, setTechData] = useState({
+    language: [],
+    library: [],
+    framework: [],
+    software: []
+  });
+  const [dataError, setDataError] = useState(null);
+
+  // Validate and process tech data
+  useEffect(() => {
+    try {
+      if (!tech || !Array.isArray(tech)) {
+        throw new Error('Tech data is not a valid array');
+      }
+
+      const validatedTech = tech.map((item, index) => {
+        if (!item || typeof item !== 'object') {
+          throw new Error(`Tech item at index ${index} is not a valid object`);
+        }
+
+        const requiredFields = ['icon', 'name', 'desc', 'type'];
+        const missingFields = requiredFields.filter(field => !item[field]);
+
+        if (missingFields.length > 0) {
+          logAboutError('INVALID_TECH_STRUCTURE', new Error(`Tech item at index ${index} missing required fields`), {
+            severity: 'HIGH',
+            impact: 'Tech item may not display correctly',
+            techIndex: index,
+            missingFields,
+            techData: item,
+            solution: 'Ensure each tech item has icon, name, desc, and type fields'
+          });
+        }
+
+        // Validate icon path
+        if (item.icon && typeof item.icon !== 'string') {
+          logAboutError('INVALID_ICON_PATH', new Error(`Tech item "${item.name}" has invalid icon path`), {
+            severity: 'MEDIUM',
+            impact: 'Icon may not display',
+            techName: item.name,
+            iconValue: item.icon,
+            solution: 'Icon should be a valid string path'
+          });
+        }
+
+        return item;
+      });
+
+      const language = validatedTech.filter((t) => t.type === "language");
+      const library = validatedTech.filter((t) => t.type === "library");
+      const framework = validatedTech.filter((t) => t.type === "framework");
+      const software = validatedTech.filter((t) => t.type === "software");
+
+      setTechData({ language, library, framework, software });
+      console.log(`✅ Successfully loaded tech stack: ${language.length} languages, ${library.length} libraries, ${framework.length} frameworks, ${software.length} software`);
+
+    } catch (error) {
+      logAboutError('TECH_DATA_VALIDATION_ERROR', error, {
+        severity: 'CRITICAL',
+        impact: 'About section cannot display tech stack',
+        techData: tech,
+        solution: 'Check techstack.json file structure and ensure it contains valid tech objects'
+      });
+
+      setDataError(error.message);
+      setTechData({ language: [], library: [], framework: [], software: [] });
+    }
+  }, []);
+
+  const { language, library, framework, software } = techData;
+
+  // Helper component for tech icons with error handling
+  const TechIcon = ({ tech, className }) => {
+    const [imageError, setImageError] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState(false);
+
+    const handleImageError = (error) => {
+      logAboutError('TECH_ICON_LOAD_ERROR', new Error(`Failed to load icon for ${tech.name}`), {
+        severity: 'MEDIUM',
+        impact: 'Tech icon will not display',
+        techName: tech.name,
+        iconPath: tech.icon,
+        solution: 'Check if icon file exists in Supabase storage and verify path'
+      });
+      setImageError(true);
+    };
+
+    const handleImageLoad = () => {
+      setImageLoaded(true);
+    };
+
+    if (imageError) {
+      return (
+        <div
+          className={`${className} bg-gray-600 flex items-center justify-center text-xs text-white`}
+          title={`${tech.name} - Icon not available`}
+        >
+          {tech.name.charAt(0)}
+        </div>
+      );
+    }
+
+    return (
+      <img
+        src={publicUrl(tech.icon)}
+        alt={tech.name}
+        title={tech.desc}
+        className={className}
+        onError={handleImageError}
+        onLoad={handleImageLoad}
+        loading="lazy"
+      />
+    );
+  };
 
   const [activeTab, setActiveTab] = useState("education");
   const educationContent = (
@@ -65,7 +190,7 @@ export const About = () => {
                 <SocialIcon
                   className="invert h-8 w-8 sm:h-10 sm:w-10"
                   href={"https://github.com/R3Nexe"}
-                  src={"icons/github.svg"}
+                  src={publicUrl("icons/github.svg")}
                 ></SocialIcon>
               </MagneticButton>
             </div>
@@ -74,7 +199,7 @@ export const About = () => {
                 <SocialIcon
                   className="invert h-8 w-8 sm:h-10 sm:w-10"
                   href={"https://www.linkedin.com/in/nishant-kumar-b91a96325/"}
-                  src={"icons/linkedin.svg"}
+                  src={publicUrl("icons/linkedin.svg")}
                 ></SocialIcon>
               </MagneticButton>
             </div>
@@ -89,10 +214,8 @@ export const About = () => {
                 <div className="pt-3 sm:pt-4 flex flex-wrap gap-4 sm:gap-6">
                   {language.map((tech, i) => (
                     <MagneticButton key={i}>
-                      <img
-                        src={tech.icon}
-                        alt={tech.name}
-                        title={tech.desc}
+                      <TechIcon
+                        tech={tech}
                         className="w-10 h-10 sm:w-12 sm:h-12"
                       />
                     </MagneticButton>
@@ -106,10 +229,8 @@ export const About = () => {
                 <div className="pt-3 sm:pt-4 flex flex-wrap gap-4 sm:gap-6">
                   {library.map((tech, i) => (
                     <MagneticButton key={i}>
-                      <img
-                        src={tech.icon}
-                        alt={tech.name}
-                        title={tech.desc}
+                      <TechIcon
+                        tech={tech}
                         className="w-10 h-10 sm:w-12 sm:h-12"
                       />
                     </MagneticButton>
@@ -123,10 +244,8 @@ export const About = () => {
                 <div className="pt-3 sm:pt-4 flex flex-wrap gap-4 sm:gap-6">
                   {framework.map((tech, i) => (
                      <MagneticButton key={i}>
-                       <img
-                         src={tech.icon}
-                         alt={tech.name}
-                         title={tech.desc}
+                       <TechIcon
+                         tech={tech}
                          className="w-10 h-10 sm:w-12 sm:h-12"
                        />
                      </MagneticButton>
@@ -140,10 +259,8 @@ export const About = () => {
                 <div className="pt-3 sm:pt-4 flex flex-wrap gap-4 sm:gap-6">
                   {software.map((tech, i) => (
                      <MagneticButton key={i}>
-                       <img
-                         src={tech.icon}
-                         alt={tech.name}
-                         title={tech.desc}
+                       <TechIcon
+                         tech={tech}
                          className="w-10 h-10 sm:w-12 sm:h-12"
                        />
                      </MagneticButton>
@@ -212,7 +329,7 @@ export const About = () => {
               <SocialIcon
                 className="invert h-10 w-10"
                 href={"https://github.com/R3Nexe"}
-                src={"icons/github.svg"}
+                src={publicUrl("icons/github.svg")}
               ></SocialIcon>
             </MagneticButton>
           </div>
@@ -221,7 +338,7 @@ export const About = () => {
               <SocialIcon
                 className="invert h-10 w-10"
                 href={"https://www.linkedin.com/in/nishant-kumar-b91a96325/"}
-                src={"icons/linkedin.svg"}
+                src={publicUrl("icons/linkedin.svg")}
               ></SocialIcon>
             </MagneticButton>
           </div>
@@ -235,10 +352,8 @@ export const About = () => {
                 <div className="pt-4 flex flex-wrap gap-6">
                   {language.map((tech, i) => (
                     <MagneticButton key={i}>
-                      <img
-                        src={tech.icon}
-                        alt={tech.name}
-                        title={tech.desc}
+                      <TechIcon
+                        tech={tech}
                         className="w-12 h-12"
                       />
                     </MagneticButton>
@@ -252,10 +367,8 @@ export const About = () => {
                 <div className="pt-4 flex flex-wrap gap-6">
                   {library.map((tech, i) => (
                     <MagneticButton key={i}>
-                      <img
-                        src={tech.icon}
-                        alt={tech.name}
-                        title={tech.desc}
+                      <TechIcon
+                        tech={tech}
                         className="w-12 h-12"
                       />
                     </MagneticButton>
@@ -269,10 +382,8 @@ export const About = () => {
                 <div className="pt-4 flex flex-wrap gap-6">
                   {framework.map((tech, i) => (
                      <MagneticButton key={i}>
-                       <img
-                         src={tech.icon}
-                         alt={tech.name}
-                         title={tech.desc}
+                       <TechIcon
+                         tech={tech}
                          className="w-12 h-12"
                        />
                      </MagneticButton>
@@ -286,10 +397,8 @@ export const About = () => {
                 <div className="pt-4 flex flex-wrap gap-6">
                   {software.map((tech, i) => (
                      <MagneticButton key={i}>
-                       <img
-                         src={tech.icon}
-                         alt={tech.name}
-                         title={tech.desc}
+                       <TechIcon
+                         tech={tech}
                          className="w-12 h-12"
                        />
                      </MagneticButton>

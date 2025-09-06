@@ -4,7 +4,7 @@
     "desc": "My dailiy drive, for Webdev, Python Automation and scripting, and movie watching",
     "link": "",
     "categories": ["Hardware", "EveryDay Carry", "Development"],
-    "img":"photos/mac.jpg"
+    "img":"photos/edc/mac.jpg"
   },
   {
     "title": "Lenovo Ideapad(2020)",
@@ -24,42 +24,42 @@
     "desc": "Blue switches, RGB, Foam and tape Modded",
     "link": "",
     "categories": ["Hardware", "Gaming", "Productivity"],
-     "img":"photos/keyb.jpg"
+     "img":"photos/edc/keyb.jpg"
   },
   {
     "title": "Cable Creations Usb Dock",
     "desc": "My dailiy drive, for Webdev, Python Automation and scripting, and movie watching",
     "link": "",
     "categories": ["Hardware", "EveryDay Carry", "Productivity"],
-      "img":"photos/dock.jpg"
+      "img":"photos/edc/dock.jpg"
   },
   {
     "title": "Samsung 2TB External SSD",
     "desc": "My dailiy drive, for Webdev, Python Automation and scripting, and movie watching",
     "link": "https://www.samsung.com/in/memory-storage/portable-ssd/portable-ssd-t7-non-touch-2tb-gray-mu-pc2t0t-ww/",
     "categories": ["Hardware", "Productivity"],
-     "img":"photos/ssd.jpg"
+     "img":"photos/edc/ssd.jpg"
   },
   {
     "title": "Logitech G304 Mouse",
     "desc": "My personal Favourite, for Gaming and Productivity",
     "link": "https://www.logitechg.com/en-in/products/gaming-mice/g304-lightspeed-wireless-gaming-mouse.html",
     "categories": ["Hardware", "Gaming", "Productivity"],
-     "img":"photos/mouse.jpg"
+     "img":"photos/edc/mouse.jpg"
   },
   {
     "title": "Sony WH-1000XM5",
     "desc": "Top Notch Noise Cancelling, For music and focus",
     "link": "https://www.amazon.in/Sony-WH-1000XM5-Wireless-Cancelling-Headphones/dp/B09XS7JWHH?th=1",
     "categories": ["Hardware", "EveryDay Carry", "Productivity"],
- "img":"photos/headphone.jpg"
+ "img":"photos/edc/headphone.jpg"
   },
   {
     "title": "Shure Srh440-Bk",
     "desc": "Top Notch Noise Cancelling, For Video Editing and Gaming",
     "link": "https://www.amazon.in/Shure-SRH440-Professional-Studio-Headphones/dp/B002DP1FTU?th=1",
     "categories": ["Hardware", "Gaming", "Productivity"],
- "img":"photos/headset.jpg"
+ "img":"photos/edc/headset.jpg"
   },
   {
     "title": "VS Code",

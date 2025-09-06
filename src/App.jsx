@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import Chatbot from "./components/Chatbot";
+import { setupGlobalErrorHandling } from "./lib/errorLogger";
 
 // Pages
 import Home from "./pages/Home";
@@ -11,6 +12,11 @@ import Uses from "./pages/Uses";
 import Gallery from "./pages/Gallery";
 
 const App = () => {
+  // Setup global error handling
+  useEffect(() => {
+    setupGlobalErrorHandling();
+  }, []);
+
   return (
     <Router>
       <main>

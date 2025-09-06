@@ -2,7 +2,7 @@ import { useState } from "react";
 import tools from "../data/use.json";
 import Card from "../components/Card";
 import { motion } from "framer-motion";
-
+import { publicUrl } from "../lib/storage";
 const categories = [
   "Show all",
   "Hardware",
@@ -96,7 +96,7 @@ export default function Uses() {
                 <motion.img
                   initial={{scale:.5}}
                   animate={{scale:1}}
-                  src={tool.img}
+                  src={publicUrl(tool.img)}
                   alt={tool.title}
                   className="absolute z-10 pointer-events-none border-2 border-white/30 rounded-4xl"
                   style={{
