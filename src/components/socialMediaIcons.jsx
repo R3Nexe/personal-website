@@ -16,6 +16,7 @@ const SocialIcon = ({ href, src, alt ,className}) => {
         src={src}
         alt={alt}
         className={className} // Adjust size with Tailwind as needed
+        onError={() => console.error("Image failed to load:", src)}
       />
     </motion.a>
   );

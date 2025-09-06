@@ -1,5 +1,19 @@
 import { motion } from "framer-motion";
 
+// Error logging utility for Card component
+const logCardError = (context, error, additionalInfo = {}) => {
+  const timestamp = new Date().toISOString();
+  const errorInfo = {
+    timestamp,
+    context,
+    error: error.message || error,
+    stack: error.stack,
+    ...additionalInfo
+  };
+
+  console.error(`🃏 CARD ERROR [${context}]:`, errorInfo);
+};
+
 export default function Card({
   title,
   desc,
@@ -8,6 +22,55 @@ export default function Card({
   websiteLink,
   variant = "default"
 }) {
+  // Validate required props
+  if (!title) {
+    logCardError('MISSING_TITLE', new Error('Card component missing required title prop'), {
+      severity: 'HIGH',
+      impact: 'Card will not display properly',
+      props: { title, desc, gitLink, liveLink, websiteLink, variant },
+      solution: 'Provide a title prop to the Card component'
+    });
+  }
+
+  if (!desc) {
+    logCardError('MISSING_DESCRIPTION', new Error('Card component missing required desc prop'), {
+      severity: 'MEDIUM',
+      impact: 'Card description will be empty',
+      props: { title, desc, gitLink, liveLink, websiteLink, variant },
+      solution: 'Provide a desc prop to the Card component'
+    });
+  }
+
+  // Validate URLs if provided
+  if (gitLink && typeof gitLink !== 'string') {
+    logCardError('INVALID_GIT_LINK', new Error('gitLink prop is not a string'), {
+      severity: 'MEDIUM',
+      impact: 'GitHub link may not work',
+      gitLinkValue: gitLink,
+      gitLinkType: typeof gitLink,
+      solution: 'gitLink should be a valid URL string'
+    });
+  }
+
+  if (liveLink && typeof liveLink !== 'string') {
+    logCardError('INVALID_LIVE_LINK', new Error('liveLink prop is not a string'), {
+      severity: 'MEDIUM',
+      impact: 'Live demo link may not work',
+      liveLinkValue: liveLink,
+      liveLinkType: typeof liveLink,
+      solution: 'liveLink should be a valid URL string'
+    });
+  }
+
+  if (websiteLink && typeof websiteLink !== 'string') {
+    logCardError('INVALID_WEBSITE_LINK', new Error('websiteLink prop is not a string'), {
+      severity: 'MEDIUM',
+      impact: 'Website link may not work',
+      websiteLinkValue: websiteLink,
+      websiteLinkType: typeof websiteLink,
+      solution: 'websiteLink should be a valid URL string'
+    });
+  }
   // For Projects variant - render with buttons
   if (variant === "project") {
     return (
