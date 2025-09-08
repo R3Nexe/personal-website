@@ -4,7 +4,7 @@
     "desc": "A python based web app that detects fraud in transactions using XGBoost machine learning model, and streamlit for deployment",
     "gitLink": "https://github.com/R3Nexe/Fraud_detection",
     "liveLink": "https://fraudetection-app.streamlit.app/",
-    "categories": ["Web", "Machine Learning"]
+    "categories": ["Machine Learning"]
   },
   {
     "title": "Hand-Tracking application",
@@ -12,5 +12,12 @@
     "gitLink": "https://github.com/R3Nexe/Handtracking_python",
     "liveLink": null,
     "categories": ["Machine Learning", "Computer Vision"]
+  },
+  {
+    "title": "Plant Disease Classification Web App",
+    "desc": "A python based web app that classifies tomato leaves into diseased and healthy categories using MobileNetV2 CNN model and streamlit for deployment",
+    "gitLink": "https://github.com/R3Nexe/plant-disease-detection",
+    "liveLink": "https://plantdisease-classifier.streamlit.app/",
+    "categories": ["Machine Learning"]
   }
 ]
