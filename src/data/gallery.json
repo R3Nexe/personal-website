@@ -1,0 +1,621 @@
+[
+                {
+                  "title": "Mokapot",
+                  "desc": "Photo of mokaPot",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/mokaPot.jpg"
+                },
+                {
+                  "title": "Watch",
+                  "desc": "Photo of watch",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/watch.jpg"
+                },
+                {
+                  "title": "Itachi Sketch",
+                  "desc": "Sketch of Itachi sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/Itachi_sketch.jpeg"
+                },
+                {
+                  "title": "Geto Sketch",
+                  "desc": "Sketch of geto sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/geto_sketch.jpeg"
+                },
+                {
+                  "title": "Pinksky",
+                  "desc": "Photo of pinkSky",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/pinkSky.jpg"
+                },
+                {
+                  "title": "Spider",
+                  "desc": "Photo of spider",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/spider.jpg"
+                },
+
+
+                {
+                  "title": "Compound 3D",
+                  "desc": "3D render of Compound 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/Compound_3d.png"
+                },
+                {
+                  "title": "Flowerindark",
+                  "desc": "Photo of flowerInDark",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/flowerInDark.jpg"
+                },
+                {
+                  "title": "Bolec Study 2 3D",
+                  "desc": "3D render of bolec study 2 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/bolec study 2_3d.png"
+                },
+                {
+                  "title": "Alucard Sketch",
+                  "desc": "Sketch of alucard sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/alucard_sketch.jpg"
+                },
+                {
+                  "title": "Arc1 3D",
+                  "desc": "3D render of arc1 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/arc1_3d.png"
+                },
+                {
+                  "title": "Toji Sketch",
+                  "desc": "Sketch of toji sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/toji_sketch.png"
+                },
+                {
+                  "title": "Treesillhoute",
+                  "desc": "Photo of treeSillhoute",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/treeSillhoute.jpg"
+                },
+                {
+                  "title": "Pinksun",
+                  "desc": "Photo of pinkSun",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/pinkSun.webp"
+                },
+                {
+                  "title": "Eagle",
+                  "desc": "Photo of eagle",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/eagle.jpg"
+                },
+                {
+                  "title": "Bolek Study4 3D",
+                  "desc": "3D render of bolek study4 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/bolek study4_3d.png"
+                },
+                {
+                  "title": "Gilgamesh Sketch",
+                  "desc": "Sketch of gilgamesh sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/gilgamesh_sketch.jpeg"
+                },
+                {
+                  "title": "Gojo Sketch",
+                  "desc": "Sketch of gojo sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/gojo_sketch.jpg"
+                },
+                {
+                  "title": "Sparrow Through Window",
+                  "desc": "Photo of Sparrow through window",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/Sparrow_through_window.jpg"
+                },
+                {
+                  "title": "Gojounseal Sketch",
+                  "desc": "Sketch of gojoUnseal sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/gojoUnseal_sketch.jpeg"
+                },
+                {
+                  "title": "Dewdrop",
+                  "desc": "Photo of dewdrop",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/dewdrop.jpg"
+                },
+                {
+                  "title": "Sunsetcloud",
+                  "desc": "Photo of sunsetCloud",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/sunsetCloud.jpg"
+                },
+                {
+                  "title": "Sunsetsillhoute",
+                  "desc": "Photo of sunsetSillhoute",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/sunsetSillhoute.jpg"
+                },
+                {
+                  "title": "Brut Building 3D",
+                  "desc": "3D render of brut building 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/brut building_3d.png"
+                },
+                {
+                  "title": "Naobito Sketch",
+                  "desc": "Sketch of naobito sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/naobito_sketch.jpeg"
+                },
+                {
+                  "title": "Redhoodedbulbul",
+                  "desc": "Photo of redhoodedbulbul",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/redhoodedbulbul.jpg"
+                },
+                {
+                  "title": "Vergil Sketch",
+                  "desc": "Sketch of vergil sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/vergil_sketch.jpeg"
+                },
+
+                {
+                  "title": "Death Sketch",
+                  "desc": "Sketch of death sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/death_sketch.jpeg"
+                },
+                {
+                  "title": "Bolek Study 4 3D ",
+                  "desc": "3D render of bolek study 4 3d ",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/bolek study 4_3d .png"
+                },
+                {
+                  "title": "Deathwolf Sketch",
+                  "desc": "Sketch of deathWolf sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/deathWolf_sketch.jpeg"
+                },
+                {
+                  "title": "Sf3 Sketch",
+                  "desc": "Sketch of sf3 sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/sf3_sketch.jpeg"
+                },
+                {
+                  "title": "Ren Sketch",
+                  "desc": "Sketch of ren sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/ren_sketch.jpeg"
+                },
+                {
+                  "title": "Blackcoffeetop",
+                  "desc": "Photo of blackCoffeeTop",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/blackCoffeeTop.jpg"
+                },
+                {
+                  "title": "Filament",
+                  "desc": "Photo of filament",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/filament.jpg"
+                },
+                {
+                  "title": "Yellowleaf",
+                  "desc": "Photo of YellowLeaf",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/YellowLeaf.jpg"
+                },
+                {
+                  "title": "Marin Sketch",
+                  "desc": "Sketch of marin sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/marin_sketch.jpg"
+                },
+                {
+                  "title": "Macsetup",
+                  "desc": "Photo of MacSetup",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/MacSetup.jpg"
+                },
+                {
+                  "title": "Renoc Sketch",
+                  "desc": "Sketch of renoc sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/renoc_sketch.jpg"
+                },
+                {
+                  "title": "Sunbud",
+                  "desc": "Photo of sunBud",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/sunBud.jpg"
+                },
+                {
+                  "title": "Bolek Study 3 3D",
+                  "desc": "3D render of bolek study 3 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/bolek study 3_3d.png"
+                },
+                {
+                  "title": "Brut3Insta 3D",
+                  "desc": "3D render of brut3insta 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/brut3insta_3d.png"
+                },
+                {
+                  "title": "Eren Sketch",
+                  "desc": "Sketch of eren sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/eren_sketch.jpeg"
+                },
+                {
+                  "title": "Flower 3D",
+                  "desc": "3D render of flower 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/flower_3d.png"
+                },
+                {
+                  "title": "Spaceship 3D",
+                  "desc": "3D render of apaceship 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/apaceship_3d.png"
+                },
+                {
+                  "title": "Obito Sketch",
+                  "desc": "Sketch of obito sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/obito_sketch.jpeg"
+                },
+                {
+                  "title": "Bolek Study 5 3D ",
+                  "desc": "3D render of bolek study 5 3d ",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/bolek study 5_3d .png"
+                },
+                {
+                  "title": "Obito Unmasked Sketch",
+                  "desc": "Sketch of obito unmasked sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/obito_unmasked_sketch.jpeg"
+                },
+                {
+                  "title": "Coffeeandlaptop",
+                  "desc": "Photo of coffeeandlaptop",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/coffeeandlaptop.jpg"
+                },
+                {
+                  "title": "Spiderbw",
+                  "desc": "Photo of spiderbw",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/spiderbw.jpg"
+                },
+                {
+                  "title": "Lightbulbs",
+                  "desc": "Photo of lightBulbs",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/lightBulbs.jpg"
+                },
+                {
+                  "title": "Coffeeandwork",
+                  "desc": "Photo of coffeeandwork",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/coffeeandwork.jpg"
+                },
+                {
+                  "title": "Blame Sketch",
+                  "desc": "Sketch of blame sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/blame_sketch.png"
+                },
+                {
+                  "title": "Moonknight Sketch",
+                  "desc": "Sketch of moonKnight sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/moonKnight_sketch.jpg"
+                },
+                {
+                  "title": "Mining 3D",
+                  "desc": "3D render of mining 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/mining_3d.png"
+                },
+                {
+                  "title": "Keychain",
+                  "desc": "Photo of keychain",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/keychain.jpg"
+                },
+                {
+                  "title": "Flymacro",
+                  "desc": "Photo of FlyMacro",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/FlyMacro.jpg"
+                },
+                {
+                  "title": "Bw Building",
+                  "desc": "Photo of bw building",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/bw_building.jpg"
+                },
+                {
+                  "title": "Shiva Sketch",
+                  "desc": "Sketch of Shiva sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/Shiva_sketch.jpg"
+                },
+                {
+                  "title": "Buddha",
+                  "desc": "Photo of buddha",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/buddha.jpeg"
+                },
+                {
+                  "title": "Bolek Study 3D",
+                  "desc": "3D render of bolek study 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/bolek study_3d.png"
+                },
+                {
+                  "title": "Johan",
+                  "desc": "Photo of johan",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/johan.jpeg"
+                },
+                {
+                  "title": "Purpleflower",
+                  "desc": "Photo of purpleFlower",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/purpleFlower.jpg"
+                },
+                {
+                  "title": "Leafsillhoute",
+                  "desc": "Photo of leafSillhoute",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/leafSillhoute.jpg"
+                },
+                {
+                  "title": "Dracula Sketch",
+                  "desc": "Sketch of dracula sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/dracula_sketch.jpeg"
+                },
+                {
+                  "title": "Bladerunner Study 3D",
+                  "desc": "3D render of bladerunner study 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/bladerunner study_3d.png"
+                },
+                {
+                  "title": "Purpleflowers",
+                  "desc": "Photo of purpleFlowers",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/purpleFlowers.jpg"
+                },
+                {
+                  "title": "Claws Sketch",
+                  "desc": "Sketch of claws sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/claws_sketch.jpg"
+                },
+                {
+                  "title": "Bikewheel",
+                  "desc": "Photo of bikewheel",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/bikewheel.jpg"
+                },
+                {
+                  "title": "Visitor 3D",
+                  "desc": "3D render of visitor 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/visitor_3d.jpg"
+                },
+                {
+                  "title": "Yorrichi Sketch",
+                  "desc": "Sketch of yorrichi sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/yorrichi_sketch.jpg"
+                },
+                {
+                  "title": "Sf2Logo Sketch",
+                  "desc": "Sketch of sf2Logo sketch",
+                  "categories": [
+                    "Sketches"
+                  ],
+                  "img": "sketches/sf2Logo_sketch.jpg"
+                },
+                {
+                  "title": "Traffic Light 3D",
+                  "desc": "3D render of traffic light 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/traffic light_3d.png"
+                },
+                {
+                  "title": "Pinksunset",
+                  "desc": "Photo of pinksunset",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/pinksunset.jpg"
+                },
+                {
+                  "title": "Temple 3D",
+                  "desc": "3D render of temple 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/temple_3d.png"
+                },
+                {
+                  "title": "Mirrorcube",
+                  "desc": "Photo of mirrorCube",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/mirrorCube.jpg"
+                },
+                {
+                  "title": "Facade",
+                  "desc": "Photo of facade",
+                  "categories": [
+                    "Photos"
+                  ],
+                  "img": "sketches/facade.jpg"
+                },
+                {
+                  "title": "Encounter 3D",
+                  "desc": "3D render of encounter 3d",
+                  "categories": [
+                    "3D Renders"
+                  ],
+                  "img": "sketches/encounter_3d.png"
+                }
+              ]

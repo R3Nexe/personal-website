@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { publicUrl } from "../lib/storage";
+import { publicUrl } from "../lib/assets";
 import { useState, useEffect } from "react";
 
 // Error logging utility for video operations

@@ -3,7 +3,7 @@ import SocialIcon from "./socialMediaIcons";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import tech from "../data/techstack.json";
-import { publicUrl } from "../lib/storage";
+import { publicUrl } from "../lib/assets";
 
 // Error logging utility for About component
 const logAboutError = (context, error, additionalInfo = {}) => {

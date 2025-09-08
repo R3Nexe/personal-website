@@ -2,7 +2,7 @@ import { useState } from "react";
 import tools from "../data/use.json";
 import Card from "../components/Card";
 import { motion } from "framer-motion";
-import { publicUrl } from "../lib/storage";
+import { publicUrl } from "../lib/assets";
 const categories = [
   "Show all",
   "Hardware",
@@ -10,9 +10,6 @@ const categories = [
   "Development",
   "EveryDay Carry",
   "Productivity",
-  "Gaming",
-  "Art",
-  "Security",
 ];
 
 export default function Uses() {
@@ -63,10 +60,10 @@ export default function Uses() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-3 py-1 z-2 rounded-full border ${
+              className={`px-3 py-1 z-2 rounded-full border border-white/50 ${
                 activeCategory === cat
-                  ? "bg-bright-purple text-white"
-                  : "text-white hover:bg-gray-300 hover:text-bright-purple transition-all duration-300"
+                 ? "bg-bright-purple text-white"
+                  : "text-white hover:bg-white/60 hover:text-black transition-all duration-300"
               }`}
             >
               {cat}

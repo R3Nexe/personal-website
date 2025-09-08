@@ -13,8 +13,8 @@ export const Navbar = () => {
 
   return (
     // desktop navigation bar
-    <nav className="fixed z-40 top-0 left-0 py-5 px-5">
-      <div className="w-fit mx-auto hidden md:flex justify-center border px-4 border-[#454545] rounded-full backdrop-blur-xl">
+    <nav className="fixed top-0 left-0 py-5 px-5">
+      <div className="w-fit mx-auto hidden md:flex justify-center border px-4 border-white/30 rounded-full backdrop-blur-xl">
         <ul className="flex gap-6">
           {navLinks.map((link) => (
             <li key={link.name} className="uppercase font-sub-head">
@@ -39,7 +39,7 @@ export const Navbar = () => {
       {isOpen && (
         <>
           <div
-            className={`fixed md:hidden top-0 left-0 h-full w-full backdrop-blur-2xl z-40 p-6 ${
+            className={`fixed md:hidden top-0 left-0 h-full w-full bg-black/50  backdrop-blur-2xl z-40 p-6 ${
               isOpen ? "translate-x-0" : "-translate-x-full"
             }`}
           >
@@ -48,8 +48,9 @@ export const Navbar = () => {
                 <X className="size-10"></X>
                 </button>
             </div>
-            <ul className="flex flex-col gap-4">
+            <ul className="flex flex-col w-full gap-4">
               {navLinks.map((link) => (
+
                 <li key={link.name} className="uppercase text-8xl">
                   <Link
                     to={link.path}
