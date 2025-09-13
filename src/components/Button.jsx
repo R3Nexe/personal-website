@@ -40,17 +40,18 @@ const Button = () => {
   return (
     <div className="flex justify-center pt-3">
       <motion.div
-        className="flex relative overflow-clip border-1 p-2 rounded-full
+        className="group flex relative overflow-clip border-1 border-bright-purple p-2 rounded-full bg-white hover:bg-white/50 transition-all duration-400
         "
         onMouseEnter={() => setisHover(true)}
         onMouseLeave={() => setisHover(false)}
+        initial={{translateY:50}}
         animate={{
-          scale: isHover ? 1.1 : 1,
+          translateY:0
         }}
-        transition={{ ease: "easeIn" }}
+        transition={{ ease: "easeOut",duration:1}}
       >
         <motion.a
-          className="text-white z-5 "
+          className="text-black z-5 group-hover:text-white transition-all duration-400"
           href="/resume/webdevResume.pdf"
           target="_blank"
           rel="noopener noreferrer"

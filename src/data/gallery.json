@@ -486,7 +486,7 @@
                   "title": "Johan",
                   "desc": "Photo of johan",
                   "categories": [
-                    "Photos"
+                    "Sketches"
                   ],
                   "img": "sketches/johan.jpeg"
                 },
@@ -531,10 +531,10 @@
                   "img": "sketches/purpleFlowers.jpg"
                 },
                 {
-                  "title": "Claws Sketch",
-                  "desc": "Sketch of claws sketch",
+                  "title": "Pink sunset",
+                  "desc": "Sketch of Pink Sunset",
                   "categories": [
-                    "Sketches"
+                    "Photos"
                   ],
                   "img": "sketches/claws_sketch.jpg"
                 },
