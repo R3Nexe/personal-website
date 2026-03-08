@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { Navbar } from "./components/Navbar";
+import Loader from "./components/Loader";
 
 import { setupGlobalErrorHandling } from "./lib/errorLogger";
 
@@ -12,6 +14,8 @@ import Uses from "./pages/Uses";
 import Gallery from "./pages/Gallery";
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   // Setup global error handling
   useEffect(() => {
     setupGlobalErrorHandling();
@@ -19,6 +23,9 @@ const App = () => {
 
   return (
     <Router>
+      <AnimatePresence mode="wait">
+        {isLoading && <Loader key="loader" setLoading={setIsLoading} />}
+      </AnimatePresence>
       <main>
         <Navbar />
         <Routes>

@@ -134,21 +134,24 @@ const Projects = () => {
           <div className="flex mt-[10vh] mb-10">
             <h1 className="font-head z-2 text-5xl">My Projects</h1>
           </div>
-          <div className="flex flex-wrap w-[60vw] z-3 gap-2 mb-6">
-            {categories.map((cat) => (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-3 py-1 z-2 rounded-full border  ${
-                  activeCategory === cat
-                    ? "bg-bright-purple text-white"
-                    : " text-white hover:bg-gray-300 hover:text-bright-purple transition-all duration-300"
-                }`}
-              >
-                {cat}
-              </motion.button>
-            ))}
+          {/* Category filter */}
+          <div className="flex w-full z-3 mb-10 justify-center">
+            <div className="py-4 backdrop-blur-3xl bg-black/60 px-5 text-sm md:text-base rounded-3xl drop-shadow-2xl flex flex-wrap justify-center gap-2">
+              {categories.map((cat) => (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-2 z-2 mx-1 rounded-3xl border border-transparent ${
+                    activeCategory === cat
+                      ? "bg-bright-purple text-white"
+                      : "text-white hover:bg-white/60 hover:text-black transition-all duration-300"
+                  }`}
+                >
+                  {cat}
+                </motion.button>
+              ))}
+            </div>
           </div>
           {dataError ? (
             <div className="text-center text-red-400 p-8">

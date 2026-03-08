@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { getPublicUrl } from "../lib/imageFetch";
 import galleryData from "../data/gallery.json";
+import { LazyImage } from "../components/LazyImage";
 
 const categories = ["Show all", "Photos", "Sketches", "3D Renders"];
 
@@ -57,14 +58,13 @@ export default function Gallery() {
           {filteredTools.map((item, idx) => (
             <div
               key={idx}
-              className="break-inside-avoid cursor-pointer"
+              className="break-inside-avoid cursor-pointer mb-4 hover:opacity-70 transition"
               onClick={() => setSelectedImage(item.publicUrl)}
             >
-              <img
+              <LazyImage
                 src={item.publicUrl}
                 alt={item.title}
-                className="mb-4 w-full rounded-xl shadow-md hover:opacity-70 transition"
-                loading="lazy"
+                className="shadow-md"
               />
             </div>
           ))}
