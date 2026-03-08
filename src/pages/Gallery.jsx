@@ -1,8 +1,7 @@
-// src/components/Gallery.jsx
 import { useEffect, useState } from "react";
 import { getPublicUrl } from "../lib/imageFetch";
-import galleryData from "../data/gallery.json";
 import { LazyImage } from "../components/LazyImage";
+import { fetchGallery } from "../lib/dataService";
 
 const categories = ["Show all", "Photos", "Sketches", "3D Renders"];
 
@@ -12,15 +11,16 @@ export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    // Map JSON items to include public URLs
-    const itemsWithUrls = galleryData.map((item) => ({
-      ...item,
-      publicUrl: getPublicUrl(item.img),
-    }));
-    setGalleryItems(itemsWithUrls);
-
-    // Debug: check generated URLs
-    console.log("✅ Gallery items with URLs:", itemsWithUrls);
+    fetchGallery()
+      .then((items) => {
+        const itemsWithUrls = items.map((item) => ({
+          ...item,
+          publicUrl: getPublicUrl(item.img),
+        }));
+        setGalleryItems(itemsWithUrls);
+        console.log("✅ Gallery items loaded from Supabase:", itemsWithUrls.length);
+      })
+      .catch((err) => console.error("Failed to load gallery:", err.message));
   }, []);
 
   // Filter from galleryItems (not raw galleryData)

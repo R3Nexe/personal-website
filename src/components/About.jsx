@@ -2,7 +2,7 @@ import MagneticButton from "./MagneticButton";
 import SocialIcon from "./socialMediaIcons";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import tech from "../data/techstack.json";
+import { fetchTechStack } from "../lib/dataService";
 import { publicUrl } from "../lib/assets";
 
 // Error logging utility for About component
@@ -28,65 +28,26 @@ export const About = () => {
   });
   const [dataError, setDataError] = useState(null);
 
-  // Validate and process tech data
+  // Fetch tech stack from Supabase
   useEffect(() => {
-    try {
-      if (!tech || !Array.isArray(tech)) {
-        throw new Error('Tech data is not a valid array');
-      }
-
-      const validatedTech = tech.map((item, index) => {
-        if (!item || typeof item !== 'object') {
-          throw new Error(`Tech item at index ${index} is not a valid object`);
-        }
-
-        const requiredFields = ['icon', 'name', 'desc', 'type'];
-        const missingFields = requiredFields.filter(field => !item[field]);
-
-        if (missingFields.length > 0) {
-          logAboutError('INVALID_TECH_STRUCTURE', new Error(`Tech item at index ${index} missing required fields`), {
-            severity: 'HIGH',
-            impact: 'Tech item may not display correctly',
-            techIndex: index,
-            missingFields,
-            techData: item,
-            solution: 'Ensure each tech item has icon, name, desc, and type fields'
-          });
-        }
-
-        // Validate icon path
-        if (item.icon && typeof item.icon !== 'string') {
-          logAboutError('INVALID_ICON_PATH', new Error(`Tech item "${item.name}" has invalid icon path`), {
-            severity: 'MEDIUM',
-            impact: 'Icon may not display',
-            techName: item.name,
-            iconValue: item.icon,
-            solution: 'Icon should be a valid string path'
-          });
-        }
-
-        return item;
+    fetchTechStack()
+      .then((items) => {
+        const language = items.filter((t) => t.type === "language");
+        const library = items.filter((t) => t.type === "library");
+        const framework = items.filter((t) => t.type === "framework");
+        const software = items.filter((t) => t.type === "software");
+        setTechData({ language, library, framework, software });
+        console.log(`✅ Tech stack loaded from Supabase: ${items.length} items`);
+      })
+      .catch((error) => {
+        logAboutError('SUPABASE_FETCH_ERROR', error, {
+          severity: 'CRITICAL',
+          impact: 'About section cannot display tech stack',
+          solution: 'Check Supabase connection and techstack table'
+        });
+        setDataError(error.message);
+        setTechData({ language: [], library: [], framework: [], software: [] });
       });
-
-      const language = validatedTech.filter((t) => t.type === "language");
-      const library = validatedTech.filter((t) => t.type === "library");
-      const framework = validatedTech.filter((t) => t.type === "framework");
-      const software = validatedTech.filter((t) => t.type === "software");
-
-      setTechData({ language, library, framework, software });
-      console.log(`✅ Successfully loaded tech stack: ${language.length} languages, ${library.length} libraries, ${framework.length} frameworks, ${software.length} software`);
-
-    } catch (error) {
-      logAboutError('TECH_DATA_VALIDATION_ERROR', error, {
-        severity: 'CRITICAL',
-        impact: 'About section cannot display tech stack',
-        techData: tech,
-        solution: 'Check techstack.json file structure and ensure it contains valid tech objects'
-      });
-
-      setDataError(error.message);
-      setTechData({ language: [], library: [], framework: [], software: [] });
-    }
   }, []);
 
   const { language, library, framework, software } = techData;

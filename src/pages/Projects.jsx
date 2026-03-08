@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import Card from "../components/Card";
-import projects from "../data/projects.json";
+import { fetchProjects } from "../lib/dataService";
 
 // Error logging utility for projects page
 const logProjectsError = (context, error, additionalInfo = {}) => {
@@ -30,83 +30,22 @@ const Projects = () => {
   const [projectsData, setProjectsData] = useState([]);
   const [dataError, setDataError] = useState(null);
 
-  // Validate and process projects data
+  // Fetch projects from Supabase
   useEffect(() => {
-    try {
-      // Check if projects data is valid
-      if (!projects || !Array.isArray(projects)) {
-        throw new Error('Projects data is not a valid array');
-      }
-
-      // Validate each project object
-      const validatedProjects = projects.map((project, index) => {
-        if (!project || typeof project !== 'object') {
-          throw new Error(`Project at index ${index} is not a valid object`);
-        }
-
-        const requiredFields = ['title', 'desc', 'categories'];
-        const missingFields = requiredFields.filter(field => !project[field]);
-
-        if (missingFields.length > 0) {
-          logProjectsError('INVALID_PROJECT_STRUCTURE', new Error(`Project at index ${index} missing required fields`), {
-            severity: 'HIGH',
-            impact: 'Project may not display correctly',
-            projectIndex: index,
-            missingFields,
-            projectData: project,
-            solution: 'Ensure each project has title, desc, and categories fields'
-          });
-        }
-
-        // Validate categories array
-        if (!Array.isArray(project.categories)) {
-          logProjectsError('INVALID_CATEGORIES', new Error(`Project "${project.title}" has invalid categories`), {
-            severity: 'MEDIUM',
-            impact: 'Project filtering may not work correctly',
-            projectTitle: project.title,
-            categoriesValue: project.categories,
-            solution: 'Categories should be an array of strings'
-          });
-        }
-
-        // Validate URLs if present
-        if (project.gitLink && typeof project.gitLink !== 'string') {
-          logProjectsError('INVALID_GIT_LINK', new Error(`Project "${project.title}" has invalid gitLink`), {
-            severity: 'MEDIUM',
-            impact: 'GitHub link may not work',
-            projectTitle: project.title,
-            gitLinkValue: project.gitLink,
-            solution: 'Git link should be a valid URL string'
-          });
-        }
-
-        if (project.liveLink && typeof project.liveLink !== 'string') {
-          logProjectsError('INVALID_LIVE_LINK', new Error(`Project "${project.title}" has invalid liveLink`), {
-            severity: 'MEDIUM',
-            impact: 'Live demo link may not work',
-            projectTitle: project.title,
-            liveLinkValue: project.liveLink,
-            solution: 'Live link should be a valid URL string'
-          });
-        }
-
-        return project;
+    fetchProjects()
+      .then((data) => {
+        setProjectsData(data);
+        console.log(`✅ Successfully loaded ${data.length} projects from Supabase`);
+      })
+      .catch((error) => {
+        logProjectsError('SUPABASE_FETCH_ERROR', error, {
+          severity: 'CRITICAL',
+          impact: 'Projects page cannot display data',
+          solution: 'Check Supabase connection and table configuration'
+        });
+        setDataError(error.message);
+        setProjectsData([]);
       });
-
-      setProjectsData(validatedProjects);
-      console.log(`✅ Successfully loaded ${validatedProjects.length} projects`);
-
-    } catch (error) {
-      logProjectsError('DATA_VALIDATION_ERROR', error, {
-        severity: 'CRITICAL',
-        impact: 'Projects page cannot display data',
-        projectsData: projects,
-        solution: 'Check projects.json file structure and ensure it contains valid project objects'
-      });
-
-      setDataError(error.message);
-      setProjectsData([]);
-    }
   }, []);
 
   const filteredTools =
@@ -167,35 +106,16 @@ const Projects = () => {
                   <p className="text-sm">No projects match the selected category "{activeCategory}"</p>
                 </div>
               ) : (
-                filteredTools.map((tool, i) => {
-                  try {
-                    return (
-                      <Card
-                        key={`${tool.title}-${i}`}
-                        title={tool.title}
-                        desc={tool.desc}
-                        gitLink={tool.gitLink}
-                        liveLink={tool.liveLink}
-                        variant="project"
-                      />
-                    );
-                  } catch (error) {
-                    logProjectsError('CARD_RENDER_ERROR', error, {
-                      severity: 'HIGH',
-                      impact: 'Project card failed to render',
-                      projectIndex: i,
-                      projectData: tool,
-                      solution: 'Check project data structure and Card component'
-                    });
-
-                    return (
-                      <div key={`error-${i}`} className="p-4 border border-red-500 rounded-lg bg-red-900/20">
-                        <h3 className="text-red-400 font-semibold">Error rendering project</h3>
-                        <p className="text-red-300 text-sm">{tool.title || 'Unknown project'}</p>
-                      </div>
-                    );
-                  }
-                })
+                filteredTools.map((tool, i) => (
+                  <Card
+                    key={`${tool.title}-${i}`}
+                    title={tool.title}
+                    desc={tool.desc}
+                    gitLink={tool.git_link}
+                    liveLink={tool.live_link}
+                    variant="project"
+                  />
+                ))
               )}
             </div>
           )}

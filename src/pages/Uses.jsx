@@ -1,8 +1,8 @@
-import { useState } from "react";
-import tools from "../data/use.json";
+import { useState, useEffect } from "react";
 import Card from "../components/Card";
 import { motion } from "framer-motion";
 import { publicUrl } from "../lib/assets";
+import { fetchUses } from "../lib/dataService";
 const categories = [
   "Show all",
   "Hardware",
@@ -14,8 +14,15 @@ const categories = [
 
 export default function Uses() {
   const [activeCategory, setActiveCategory] = useState("Show all");
+  const [tools, setTools] = useState([]);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    fetchUses()
+      .then(setTools)
+      .catch((err) => console.error('Failed to load uses:', err.message));
+  }, []);
 
   const IMAGE_SIZE = 512; // px, matches w-16 h-16
 
