@@ -9,7 +9,7 @@ const logButtonError = (context, error, additionalInfo = {}) => {
     context,
     error: error.message || error,
     stack: error.stack,
-    ...additionalInfo
+    ...additionalInfo,
   };
 
   console.error(`🔘 BUTTON ERROR [${context}]:`, errorInfo);
@@ -21,18 +21,19 @@ const Button = () => {
   const handleClick = (event) => {
     try {
       // Check if resume file exists
-      const resumePath = "/resume/webdevResume.pdf";
+      const resumePath = "/resume/nishant_kumar.pdf";
 
       // Note: We can't actually check if the file exists from the client side
       // but we can log the click for analytics/debugging
-      console.log(`✅ Resume button clicked - attempting to open: ${resumePath}`);
-
+      console.log(
+        `✅ Resume button clicked - attempting to open: ${resumePath}`,
+      );
     } catch (error) {
-      logButtonError('RESUME_CLICK_ERROR', error, {
-        severity: 'LOW',
-        impact: 'Resume download may fail',
-        resumePath: "/resume/webdevResume.pdf",
-        solution: 'Ensure resume file exists in public/resume/ directory'
+      logButtonError("RESUME_CLICK_ERROR", error, {
+        severity: "LOW",
+        impact: "Resume download may fail",
+        resumePath: "/resume/nishant_kumar.pdf",
+        solution: "Ensure resume file exists in public/resume/ directory",
       });
     }
   };
@@ -44,15 +45,15 @@ const Button = () => {
         "
         onMouseEnter={() => setisHover(true)}
         onMouseLeave={() => setisHover(false)}
-        initial={{translateY:50}}
+        initial={{ translateY: 50 }}
         animate={{
-          translateY:0
+          translateY: 0,
         }}
-        transition={{ ease: "easeOut",duration:1}}
+        transition={{ ease: "easeOut", duration: 1 }}
       >
         <motion.a
           className="text-black z-5 group-hover:text-white transition-all duration-400"
-          href="/resume/webdevResume.pdf"
+          href="/resume/nishant_kumar.pdf"
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleClick}
