@@ -97,11 +97,11 @@ body {
     }
 
     .techstack-icon-tile {
-        @apply flex items-center justify-center p-2.5 rounded-xl border border-[#454545]/50 bg-[#1a1a1a]/40 transition-all duration-300;
+        @apply flex items-center justify-center p-2.5 rounded-xl bg-[#1a1a1a]/40 transition-all duration-300;
     }
 
     .techstack-icon-tile:hover {
-        @apply border-bright-purple/50 -translate-y-0.5;
+        @apply -translate-y-0.5;
         box-shadow: 0 12px 28px rgba(154, 112, 245, 0.2);
     }
 

@@ -118,10 +118,10 @@ export const About = () => {
       </li>
     </ul>
   );
-  const cardClasses =
-    "group relative border border-white/10 backdrop-blur-sm bg-[#1a1a1a]/40 hover:bg-gradient-to-br hover:from-[#9A70F5]/2 hover:via-[#1a1a1a]/90 hover:to-[#9A70F5]/25 hover:backdrop-blur-xl p-4 flex items-center justify-center hover:shadow-bright-purple/50 inset-0 shadow-xl transform transition-all duration-500 ease-out hover:scale-102";
-  const barClasses =
+  const panelClasses =
     "group relative border border-white/10 backdrop-blur-sm bg-[#1a1a1a]/40 hover:backdrop-blur-xl inset-0 shadow-xl transform transition-all duration-500 ease-out";
+  const cardClasses = `${panelClasses} p-4 flex items-center justify-center`;
+  const barClasses = panelClasses;
   const targetLock = (
     <>
       <span className="card-target card-target--tl" />
