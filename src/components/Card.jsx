@@ -20,6 +20,7 @@ export default function Card({
   gitLink,
   liveLink,
   websiteLink,
+  tag,
   variant = "default"
 }) {
   // Validate required props
@@ -95,6 +96,10 @@ export default function Card({
         >
           {/* Subtle glow effect */}
           <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#9A70F5]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {/* Target-lock corners */}
+          <span className="card-target card-target--tl" />
+          <span className="card-target card-target--br" />
+          {tag && <span className="card-tag">{tag}</span>}
 
           {/* Project title with enhanced styling */}
           <h2 className="relative font-semibold text-bright-purple text-xl mb-4 group-hover:text-white transition-colors duration-300">
@@ -113,10 +118,10 @@ export default function Card({
                 href={gitLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 text-center text-bright-purple border z-2 border-[#9A70F5]/30 rounded-xl px-4 py-2.5 text-sm font-medium hover:bg-[#9A70F5]/10 hover:border-[#9A70F5]/50 hover:text-white transition-all duration-300 backdrop-blur-sm"
-                whileHover={{ scale: 1.02 }}
+                className="btn-bracket btn-bracket--ghost z-2 flex-1 justify-center"
                 whileTap={{ scale: 0.98 }}
               >
+                <span className="btn-bracket-corner" />
                 Github
               </motion.a>
             )}
@@ -125,10 +130,10 @@ export default function Card({
                 href={liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 text-center text-white bg-gradient-to-r z-2 from-[#9A70F5] to-[#8B5CF6] rounded-xl px-4 py-2.5 text-sm font-medium hover:from-[#8B5CF6] hover:to-[#7C3AED] hover:shadow-lg hover:shadow-[#9A70F5]/25 transition-all duration-300"
-                whileHover={{ scale: 1.02 }}
+                className="btn-bracket btn-bracket--primary z-2 flex-1 justify-center"
                 whileTap={{ scale: 0.98 }}
               >
+                <span className="btn-bracket-corner" />
                 Live Demo
               </motion.a>
             )}
@@ -147,7 +152,7 @@ export default function Card({
         href={websiteLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="block"
+        className="block group"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -162,9 +167,13 @@ export default function Card({
         }}
         whileTap={{ scale: 0.98 }}
       >
-        <div className="relative p-6 rounded-2xl border border-[#454545]/50 backdrop-blur-xl bg-gradient-to-br from-[#9A70F5]/20 to-transparent rounded-bl-2xl hover:bg-gradient-to-br hover:from-[#1a1a1a]/90 hover:via-[#2a2a2a]/70 hover:to-[#1a1a1a]/90">
+        <div className="relative p-6 rounded-2xl border border-[#454545]/50 backdrop-blur-xl bg-gradient-to-br from-[#9A70F5]/20 to-transparent rounded-bl-2xl group-hover:bg-gradient-to-br group-hover:from-[#1a1a1a]/90 group-hover:via-[#2a2a2a]/70 group-hover:to-[#1a1a1a]/90">
           {/* Glow Overlay */}
           <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#9A70F5]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {/* Target-lock corners */}
+          <span className="card-target card-target--tl" />
+          <span className="card-target card-target--br" />
+          {tag && <span className="card-tag">{tag}</span>}
 
           {/* Title */}
           <h2 className="relative font-semibold text-bright-purple text-xl mb-4 group-hover:text-white transition-colors duration-300">
@@ -186,7 +195,7 @@ export default function Card({
   // Default variant (fallback)
   return (
     <motion.div
-      className="relative p-6 rounded-2xl border border-[#454545]/50 backdrop-blur-xl bg-gradient-to-br from-[#1a1a1a]/80 via-[#2a2a2a]/60 to-[#1a1a1a]/80"
+      className="relative group p-6 rounded-2xl border border-[#454545]/50 backdrop-blur-xl bg-gradient-to-br from-[#1a1a1a]/80 via-[#2a2a2a]/60 to-[#1a1a1a]/80"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -195,6 +204,10 @@ export default function Card({
         y: { duration: 0.6, ease: "easeOut", delay: 0.4 }
       }}
     >
+      {/* Target-lock corners */}
+      <span className="card-target card-target--tl" />
+      <span className="card-target card-target--br" />
+      {tag && <span className="card-tag">{tag}</span>}
       <h2 className="font-semibold text-bright-purple text-xl mb-4">{title}</h2>
       <p className="text-white/90 text-sm leading-relaxed">{desc}</p>
     </motion.div>

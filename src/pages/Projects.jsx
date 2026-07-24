@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import Card from "../components/Card";
+import PageHeader from "../components/PageHeader";
 import { fetchProjects } from "../lib/dataService";
 
 // Error logging utility for projects page
@@ -70,9 +71,7 @@ const Projects = () => {
     <>
     <section className="flex flex-col top-0 justify-start items-center min-h-screen mx-auto">
         <div className="p-6">
-          <div className="flex mt-[10vh] mb-10">
-            <h1 className="font-head z-2 text-5xl">My Projects</h1>
-          </div>
+          <PageHeader eyebrow="Project Log" title="My Projects" />
           {/* Category filter */}
           <div className="flex w-full z-3 mb-10 justify-center">
             <div className="py-4 backdrop-blur-3xl bg-black/60 px-5 text-sm md:text-base rounded-3xl drop-shadow-2xl flex flex-wrap justify-center gap-2">
@@ -113,6 +112,7 @@ const Projects = () => {
                     desc={tool.desc}
                     gitLink={tool.git_link}
                     liveLink={tool.live_link}
+                    tag={Array.isArray(tool.categories) ? tool.categories[0] : undefined}
                     variant="project"
                   />
                 ))

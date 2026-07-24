@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { getPublicUrl } from "../lib/imageFetch";
 import { LazyImage } from "../components/LazyImage";
+import PageHeader from "../components/PageHeader";
 import { fetchGallery } from "../lib/dataService";
 
 const categories = ["Show all", "Photos", "Sketches", "3D Renders"];
 
+// Approximate, varied heights for the loading skeleton so the masonry grid
+// keeps a realistic footprint (width + height) while data is in flight,
+// instead of rendering empty and popping in once Supabase resolves.
+const SKELETON_HEIGHTS = [260, 340, 220, 300, 380, 240, 320, 280];
+
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("Show all");
   const [galleryItems, setGalleryItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
@@ -20,7 +27,8 @@ export default function Gallery() {
         setGalleryItems(itemsWithUrls);
         console.log("✅ Gallery items loaded from Supabase:", itemsWithUrls.length);
       })
-      .catch((err) => console.error("Failed to load gallery:", err.message));
+      .catch((err) => console.error("Failed to load gallery:", err.message))
+      .finally(() => setIsLoading(false));
   }, []);
 
   // Filter from galleryItems (not raw galleryData)
@@ -31,8 +39,8 @@ export default function Gallery() {
 
   return (
     <section className="flex flex-col z-10 top-0 justify-start items-center min-h-screen mx-auto p-3">
-      <div className="p-6z-10">
-        <h1 className="font-head text-center text-5xl mt-[10vh] mb-10">My Gallery</h1>
+      <div className="w-full p-6 z-10">
+        <PageHeader eyebrow="Visual Archive" title="My Gallery" />
 
         {/* Category filter */}
         <div className="fixed mt-[70vh] p-3 flex flex-wrap w-full  z-3 gap-2 justify-center">
@@ -55,19 +63,27 @@ export default function Gallery() {
 
         {/* Masonry layout */}
         <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
-          {filteredTools.map((item, idx) => (
-            <div
-              key={idx}
-              className="break-inside-avoid cursor-pointer mb-4 hover:opacity-70 transition"
-              onClick={() => setSelectedImage(item.publicUrl)}
-            >
-              <LazyImage
-                src={item.publicUrl}
-                alt={item.title}
-                className="shadow-md"
-              />
-            </div>
-          ))}
+          {isLoading
+            ? SKELETON_HEIGHTS.map((height, idx) => (
+                <div
+                  key={idx}
+                  className="break-inside-avoid mb-4 rounded-xl bg-white/5 animate-pulse"
+                  style={{ height }}
+                />
+              ))
+            : filteredTools.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="break-inside-avoid cursor-pointer mb-4 hover:opacity-70 transition"
+                  onClick={() => setSelectedImage(item.publicUrl)}
+                >
+                  <LazyImage
+                    src={item.publicUrl}
+                    alt={item.title}
+                    className="shadow-md"
+                  />
+                </div>
+              ))}
         </div>
 
         {/* Modal overlay */}

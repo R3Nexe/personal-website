@@ -38,23 +38,20 @@ const Button = () => {
   return (
     <div className="flex justify-center pt-3">
       <motion.div
-        className="group flex relative overflow-clip border-1 border-bright-purple p-2 rounded-full bg-white hover:bg-white/50 transition-all duration-400
-        "
-        initial={{ translateY: 50 }}
-        animate={{
-          translateY: 0,
-        }}
+        initial={{ translateY: 50, opacity: 0 }}
+        animate={{ translateY: 0, opacity: 1 }}
         transition={{ ease: "easeOut", duration: 1 }}
       >
-        <motion.a
-          className="text-black z-5 group-hover:text-white transition-all duration-400"
+        <a
+          className="btn-bracket btn-bracket--primary"
           href="/resume/nishant_kumar.pdf"
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleClick}
         >
+          <span className="btn-bracket-corner" />
           View Resume
-        </motion.a>
+        </a>
       </motion.div>
     </div>
   );

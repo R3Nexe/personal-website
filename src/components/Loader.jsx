@@ -6,6 +6,16 @@ const Loader = ({ setLoading }) => {
 
   useEffect(() => {
     let isLoaded = document.readyState === "complete";
+    let finished = false;
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      setProgress(100);
+      clearInterval(interval);
+      clearTimeout(maxWaitTimer);
+      setTimeout(() => setLoading(false), 600); // 0.6s delay at 100%
+    };
 
     // Fallback if load event hasn't fired yet
     const handleLoad = () => {
@@ -14,6 +24,10 @@ const Loader = ({ setLoading }) => {
 
     window.addEventListener("load", handleLoad);
 
+    // Hard cap: never let a slow resource (e.g. the background video)
+    // hold the loader hostage past what a visitor will tolerate.
+    const maxWaitTimer = setTimeout(finish, 3000);
+
     let progressValue = 0;
     const interval = setInterval(() => {
       // randomly increment progress
@@ -21,12 +35,9 @@ const Loader = ({ setLoading }) => {
 
       if (progressValue >= 90) {
         if (isLoaded) {
-          progressValue = 100;
-          setProgress(100);
-          clearInterval(interval);
-          setTimeout(() => setLoading(false), 600); // 0.6s delay at 100%
+          finish();
         } else {
-          progressValue = 90; // hold at 90% until fully loaded
+          progressValue = 90; // hold at 90% until fully loaded, or capped
           setProgress(90);
         }
       } else {
@@ -37,6 +48,7 @@ const Loader = ({ setLoading }) => {
     return () => {
       window.removeEventListener("load", handleLoad);
       clearInterval(interval);
+      clearTimeout(maxWaitTimer);
     };
   }, [setLoading]);
 

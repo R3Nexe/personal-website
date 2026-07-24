@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Card from "../components/Card";
+import PageHeader from "../components/PageHeader";
 import { motion } from "framer-motion";
 import { publicUrl } from "../lib/assets";
 import { fetchUses } from "../lib/dataService";
@@ -59,7 +60,7 @@ export default function Uses() {
   return (
     <section className="flex flex-col z-10 top-0 justify-start items-center min-h-screen mx-auto">
       <div className="p-6 z-10">
-        <h1 className="font-head text-5xl mt-[10vh] mb-10">My Daily Drive</h1>
+        <PageHeader eyebrow="Equipment Manifest" title="My Daily Drive" />
 
         {/* Category filter */}
         <div className="flex w-full z-3 mb-10 justify-center">
@@ -94,6 +95,7 @@ export default function Uses() {
                 title={tool.title}
                 desc={tool.desc}
                 websiteLink={tool.link}
+                tag={Array.isArray(tool.categories) ? tool.categories[0] : undefined}
                 variant="use"
               />
 

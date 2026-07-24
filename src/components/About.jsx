@@ -1,5 +1,6 @@
 import MagneticButton from "./MagneticButton";
 import SocialIcon from "./socialMediaIcons";
+import TelemetryBlock from "./TelemetryBlock";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { fetchTechStack } from "../lib/dataService";
@@ -49,6 +50,8 @@ export const About = () => {
 
   const { language, library, framework, software } = techData;
 
+  const moduleCount = language.length + library.length + framework.length + software.length;
+
   // Helper component for tech icons with error handling
   const TechIcon = ({ tech, className }) => {
     const [imageError, setImageError] = useState(false);
@@ -91,13 +94,13 @@ export const About = () => {
   const educationContent = (
     <ul className="text-sm text-gray-300 space-y-3 text-start">
       <li className="text-base">
-        - Institute of Technical Research and Education, Bhubaneshwar (2024–present) <span className="text-base text-gradient-1">GPA: 9.68/10, B.Tech</span>
+        - Institute of Technical Research and Education, Bhubaneshwar (2024–present) <span className="text-base text-green font-semibold">GPA: 9.68/10, B.Tech</span>
       </li>
       <li className="text-base">
-        - Mother's Public School, Bhubaneshwar, Higher Secondary CBSE (2022-2024) <span className="text-base text-gradient-1">86%</span>
+        - Mother's Public School, Bhubaneshwar, Higher Secondary CBSE (2022-2024) <span className="text-base text-green font-semibold">86%</span>
       </li>
       <li className="text-base">
-        - Don Bosco Academy, Patna, Secondary ICSE <br /><span className="text-base text-gradient-1">96%</span>
+        - Don Bosco Academy, Patna, Secondary ICSE <br /><span className="text-base text-green font-semibold">96%</span>
       </li>
     </ul>
   );
@@ -116,49 +119,59 @@ export const About = () => {
     </ul>
   );
   const cardClasses =
-    "border border-[#9A70F5]/40 backdrop-blur-sm bg-[#1a1a1a]/40 rounded-2xl hover:bg-gradient-to-br hover:from-[#9A70F5]/2 hover:via-[#1a1a1a]/90 hover:to-[#9A70F5]/25 hover:backdrop-blur-xl p-4 flex items-center justify-center hover:shadow-bright-purple/50 inset-0 shadow-xl transform transition-transform duration-300 hover:scale-102";
+    "group relative border border-white/10 backdrop-blur-sm bg-[#1a1a1a]/40 hover:bg-gradient-to-br hover:from-[#9A70F5]/2 hover:via-[#1a1a1a]/90 hover:to-[#9A70F5]/25 hover:backdrop-blur-xl p-4 flex items-center justify-center hover:shadow-bright-purple/50 inset-0 shadow-xl transform transition-all duration-500 ease-out hover:scale-102";
+  const barClasses =
+    "group relative border border-white/10 backdrop-blur-sm bg-[#1a1a1a]/40 hover:backdrop-blur-xl inset-0 shadow-xl transform transition-all duration-500 ease-out";
+  const targetLock = (
+    <>
+      <span className="card-target card-target--tl" />
+      <span className="card-target card-target--br" />
+    </>
+  );
   return (
     <section
       id="about"
-      className="flex flex-col justify-center items-center min-h-screen w-full px-4 mb-8 sm:px-5 text-center"
+      className="relative flex flex-col justify-center items-center min-h-screen w-full px-4 mb-8 sm:px-5 text-center"
     >
       <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl z-2 mb-6">About Me</h2>
       <div className="w-full max-w-7xl z-2">
         {/* Mobile Layout */}
         <div className="block lg:hidden space-y-4">
-          {/* Profile Card */}
-          <div className={`${cardClasses} flex flex-col items-start p-6`}>
-            <h2 className="text-xl sm:text-2xl text-bright-purple font-bold mb-2">
-              Nishant Kumar
-            </h2>
-            <p className="text-sm sm:text-base text-white mb-2">Student & Frontend Developer</p>
-            <a className="text-sm text-gray-400">Odisha, India</a>
-          </div>
-
-          {/* Social Icons Row */}
-          <div className="flex justify-center gap-4">
-          <div className={`${cardClasses} flex-grow`}>
-              <MagneticButton>
-                <SocialIcon
-                  className="invert h-8 w-8 sm:h-10 sm:w-10"
-                  href={"https://github.com/R3Nexe"}
-                  src={publicUrl("icons/github.svg")}
-                ></SocialIcon>
-              </MagneticButton>
+          {/* Profile Bar */}
+          <div className={`${barClasses} flex flex-col`}>
+            {targetLock}
+            <div className="flex flex-col items-start px-6 py-4">
+              <h2 className="text-xl sm:text-2xl text-bright-purple font-bold mb-2">
+                Nishant Kumar
+              </h2>
+              <p className="text-sm sm:text-base text-white mb-2">Student & Frontend Developer</p>
+              <a className="text-sm text-gray-400">Odisha, India</a>
             </div>
-            <div className={`${cardClasses} flex-grow`}>
-              <MagneticButton>
-                <SocialIcon
-                  className="invert h-8 w-8 sm:h-10 sm:w-10"
-                  href={"https://www.linkedin.com/in/nishant-kumar-b91a96325/"}
-                  src={publicUrl("icons/linkedin.svg")}
-                ></SocialIcon>
-              </MagneticButton>
+            <div className="flex border-t border-white/10">
+              <div className="flex-1 flex items-center justify-center py-4 border-r border-white/10">
+                <MagneticButton>
+                  <SocialIcon
+                    className="invert h-8 w-8 sm:h-10 sm:w-10"
+                    href={"https://github.com/R3Nexe"}
+                    src={publicUrl("icons/github.svg")}
+                  ></SocialIcon>
+                </MagneticButton>
+              </div>
+              <div className="flex-1 flex items-center justify-center py-4">
+                <MagneticButton>
+                  <SocialIcon
+                    className="invert h-8 w-8 sm:h-10 sm:w-10"
+                    href={"https://www.linkedin.com/in/nishant-kumar-b91a96325/"}
+                    src={publicUrl("icons/linkedin.svg")}
+                  ></SocialIcon>
+                </MagneticButton>
+              </div>
             </div>
           </div>
 
           {/* Tech Stack */}
           <div className={`${cardClasses} p-6`}>
+            {targetLock}
             <div className="text-start text-lg sm:text-xl flex flex-col gap-4 sm:gap-6">
               {/* Language */}
               <section>
@@ -224,6 +237,7 @@ export const About = () => {
 
           {/* Education/Experience Tabs */}
           <div className={`${cardClasses} p-6`}>
+            {targetLock}
             <div className="flex flex-col h-full">
               {/* Tabs */}
               <div className="w-full flex justify-center gap-2 pb-3 mb-3">
@@ -267,99 +281,98 @@ export const About = () => {
 
         {/* Desktop Layout */}
         <div className="hidden lg:grid grid-cols-8 grid-rows-4 gap-2">
-          <div
-            className={`${cardClasses} flex flex-col items-start col-span-3 transition-colors duration-500 `}
-          >
-            <h2 className="text-xl  text-bright-purple font-bold">
-              Nishant Kumar
-            </h2>
-            <p className="text-sm text-white">Student & Frontend Developer</p>
-            <a className="text-sm text-gray-400">Odisha, India</a>
-          </div>
-          <div className={cardClasses}>
-            <MagneticButton>
-              <SocialIcon
-                className="invert h-10 w-10"
-                href={"https://github.com/R3Nexe"}
-                src={publicUrl("icons/github.svg")}
-              ></SocialIcon>
-            </MagneticButton>
-          </div>
-          <div className={cardClasses}>
-            <MagneticButton>
-              <SocialIcon
-                className="invert h-10 w-10"
-                href={"https://www.linkedin.com/in/nishant-kumar-b91a96325/"}
-                src={publicUrl("icons/linkedin.svg")}
-              ></SocialIcon>
-            </MagneticButton>
+          <div className={`${barClasses} flex flex-row items-stretch col-span-5`}>
+            {targetLock}
+            <div className="flex-1 flex flex-col items-start justify-center px-6 py-4">
+              <h2 className="text-xl text-bright-purple font-bold">
+                Nishant Kumar
+              </h2>
+              <p className="text-sm text-white">Student & Frontend Developer</p>
+              <a className="text-sm text-gray-400">Odisha, India</a>
+            </div>
+            <div className="flex items-center justify-center gap-5 px-6 border-l border-white/10">
+              <MagneticButton>
+                <SocialIcon
+                  className="invert h-7 w-7"
+                  href={"https://github.com/R3Nexe"}
+                  src={publicUrl("icons/github.svg")}
+                ></SocialIcon>
+              </MagneticButton>
+              <MagneticButton>
+                <SocialIcon
+                  className="invert h-7 w-7"
+                  href={"https://www.linkedin.com/in/nishant-kumar-b91a96325/"}
+                  src={publicUrl("icons/linkedin.svg")}
+                ></SocialIcon>
+              </MagneticButton>
+            </div>
+            <div className="flex-1 items-center justify-center px-6 border-l border-white/10 hidden lg:flex">
+              <TelemetryBlock
+                lines={[
+                  ["SYS.PAGE", "ABOUT.ME"],
+                  ["SYS.MODULES", `${moduleCount} LOADED`],
+                ]}
+              />
+            </div>
           </div>
           <div
             className={`${cardClasses} grid-row-1 items-start pt-8 col-span-3 row-span-4`}
           >
-            <div className="text-start text-xl flex flex-col gap-6">
-              {/* Language */}
+            {targetLock}
+            <div className="techstack">
               <section>
-                <h2 className="font-medium font-head">Languages</h2>
-                <div className="pt-4 flex flex-wrap gap-6">
+                <h2 className="techstack-label">Languages</h2>
+                <div className="techstack-icon-row">
                   {language.map((tech, i) => (
                     <MagneticButton key={i}>
-                      <TechIcon
-                        tech={tech}
-                        className="w-12 h-12"
-                      />
+                      <div className="techstack-icon-tile">
+                        <TechIcon tech={tech} className="techstack-icon-img" />
+                      </div>
                     </MagneticButton>
                   ))}
                 </div>
               </section>
-              <hr />
-              {/* Library */}
               <section>
-                <h2 className="font-medium font-head">Libraries</h2>
-                <div className="pt-4 flex flex-wrap gap-6">
+                <h2 className="techstack-label">Libraries</h2>
+                <div className="techstack-icon-row">
                   {library.map((tech, i) => (
                     <MagneticButton key={i}>
-                      <TechIcon
-                        tech={tech}
-                        className="w-12 h-12"
-                      />
+                      <div className="techstack-icon-tile">
+                        <TechIcon tech={tech} className="techstack-icon-img" />
+                      </div>
                     </MagneticButton>
                   ))}
                 </div>
               </section>
-              <hr />
-              {/* Framework */}
               <section>
-                <h2 className="font-medium font-head">Frameworks</h2>
-                <div className="pt-4 flex flex-wrap gap-6">
+                <h2 className="techstack-label">Frameworks</h2>
+                <div className="techstack-icon-row">
                   {framework.map((tech, i) => (
-                     <MagneticButton key={i}>
-                       <TechIcon
-                         tech={tech}
-                         className="w-12 h-12"
-                       />
-                     </MagneticButton>
+                    <MagneticButton key={i}>
+                      <div className="techstack-icon-tile">
+                        <TechIcon tech={tech} className="techstack-icon-img" />
+                      </div>
+                    </MagneticButton>
                   ))}
                 </div>
               </section>
-              <hr />
-              {/* Software */}
               <section>
-                <h2 className="font-medium font-head">Software</h2>
-                <div className="pt-4 flex flex-wrap gap-6">
+                <h2 className="techstack-label">Software</h2>
+                <div className="techstack-icon-row">
                   {software.map((tech, i) => (
-                     <MagneticButton key={i}>
-                       <TechIcon
-                         tech={tech}
-                         className="w-12 h-12"
-                       />
-                     </MagneticButton>
+                    <MagneticButton key={i}>
+                      <div className="techstack-icon-tile">
+                        <TechIcon tech={tech} className="techstack-icon-img" />
+                      </div>
+                    </MagneticButton>
                   ))}
                 </div>
               </section>
             </div>
           </div>
+
           <div className={`${cardClasses} col-span-5 row-span-3`}>
+            {targetLock}
             <div className="flex flex-col h-full">
               {/* Tabs */}
               <div className="w-full flex-center gap-2 pb-2 mb-2">
@@ -399,6 +412,7 @@ export const About = () => {
               </motion.div>
             </div>
           </div>
+
         </div>
       </div>
     </section>

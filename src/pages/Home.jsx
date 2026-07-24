@@ -1,10 +1,30 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import RotatingText from "../components/RotatingText";
-import { About } from "../components/About"; 
+import TelemetryBlock from "../components/TelemetryBlock";
+import { About } from "../components/About";
 import { VideoBackground } from "../components/VideoBg";
 
 const Home = () => {
+  // Real client telemetry for the hero readout — factual only, never fabricated
+  const { scrollYProgress } = useScroll();
+  const telemetryY = useTransform(scrollYProgress, [0, 1], [0, 140]);
+
+  const [viewport, setViewport] = useState({ width: 0, height: 0, tz: "" });
+  useEffect(() => {
+    const readViewport = () => {
+      setViewport({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      });
+    };
+    readViewport();
+    window.addEventListener("resize", readViewport);
+    return () => window.removeEventListener("resize", readViewport);
+  }, []);
+
   return (
     <>
       <VideoBackground variant="home" />
@@ -16,6 +36,16 @@ const Home = () => {
         animate={{ opacity: 1, scale: 1, translateY:0 }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
+        <motion.div className="hero-telemetry" style={{ y: telemetryY }}>
+          <TelemetryBlock
+            lines={[
+              ["SYS.CLIENT", `VIEWPORT ${viewport.width}×${viewport.height}`],
+              ["SYS.CLIENT", `TZ ${viewport.tz}`],
+              ["SYS.ORIGIN", "ODISHA · IN"],
+              ["SYS.RENDER", "REACT19 // VITE7"],
+            ]}
+          />
+        </motion.div>
         <div className="max-w-4xl">
           <motion.h1
             className="font-medium text-6xl sm:text-7xl md:text-8xl"
