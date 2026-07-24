@@ -49,7 +49,7 @@ const Button = () => {
           rel="noopener noreferrer"
           onClick={handleClick}
         >
-          <span className="btn-bracket-corner" />
+          <span/>
           View Resume
         </a>
       </motion.div>
