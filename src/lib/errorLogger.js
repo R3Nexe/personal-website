@@ -35,7 +35,6 @@ export const createErrorLogger = (context, emoji = '🚨') => {
  */
 export const logSupabaseError = createErrorLogger('supabase', '🚨');
 export const logStorageError = createErrorLogger('storage', '📁');
-export const logChatbotError = createErrorLogger('chatbot', '🤖');
 export const logVideoError = createErrorLogger('video', '🎥');
 export const logProjectsError = createErrorLogger('projects', '📁');
 export const logAboutError = createErrorLogger('about', '👤');
@@ -137,7 +136,6 @@ export const getUserFriendlyMessage = (error, context) => {
   const contextMessages = {
     'supabase': 'There was an issue with the database connection.',
     'storage': 'Unable to load the requested file.',
-    'chatbot': 'The chatbot is temporarily unavailable.',
     'video': 'Unable to load the background video.',
     'projects': 'Unable to load project information.',
     'about': 'Unable to load profile information.'

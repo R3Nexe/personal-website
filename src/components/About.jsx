@@ -26,8 +26,6 @@ export const About = () => {
     framework: [],
     software: []
   });
-  const [dataError, setDataError] = useState(null);
-
   // Fetch tech stack from Supabase
   useEffect(() => {
     fetchTechStack()
@@ -45,7 +43,6 @@ export const About = () => {
           impact: 'About section cannot display tech stack',
           solution: 'Check Supabase connection and techstack table'
         });
-        setDataError(error.message);
         setTechData({ language: [], library: [], framework: [], software: [] });
       });
   }, []);
@@ -55,9 +52,8 @@ export const About = () => {
   // Helper component for tech icons with error handling
   const TechIcon = ({ tech, className }) => {
     const [imageError, setImageError] = useState(false);
-    const [imageLoaded, setImageLoaded] = useState(false);
 
-    const handleImageError = (error) => {
+    const handleImageError = () => {
       logAboutError('TECH_ICON_LOAD_ERROR', new Error(`Failed to load icon for ${tech.name}`), {
         severity: 'MEDIUM',
         impact: 'Tech icon will not display',
@@ -66,10 +62,6 @@ export const About = () => {
         solution: 'Check if icon file exists in Supabase storage and verify path'
       });
       setImageError(true);
-    };
-
-    const handleImageLoad = () => {
-      setImageLoaded(true);
     };
 
     if (imageError) {
@@ -90,7 +82,6 @@ export const About = () => {
         title={tech.desc}
         className={className}
         onError={handleImageError}
-        onLoad={handleImageLoad}
         loading="lazy"
       />
     );

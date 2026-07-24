@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 
 // Error logging utility for Button component
@@ -16,9 +15,7 @@ const logButtonError = (context, error, additionalInfo = {}) => {
 };
 
 const Button = () => {
-  const [isHover, setisHover] = useState(false);
-
-  const handleClick = (event) => {
+  const handleClick = () => {
     try {
       // Check if resume file exists
       const resumePath = "/resume/nishant_kumar.pdf";
@@ -43,8 +40,6 @@ const Button = () => {
       <motion.div
         className="group flex relative overflow-clip border-1 border-bright-purple p-2 rounded-full bg-white hover:bg-white/50 transition-all duration-400
         "
-        onMouseEnter={() => setisHover(true)}
-        onMouseLeave={() => setisHover(false)}
         initial={{ translateY: 50 }}
         animate={{
           translateY: 0,

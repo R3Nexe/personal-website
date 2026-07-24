@@ -18,13 +18,10 @@ const logVideoError = (context, error, additionalInfo = {}) => {
 
 export const VideoBackground = () => {
   const { scrollYProgress } = useScroll();
-  const translateValue = useTransform(scrollYProgress, [0, 1], [0, 500]);
   const scaleValue = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
-  const rotateValue = useTransform(scrollYProgress, [0, 1], [0, -16]);
   const opacityValue = useTransform(scrollYProgress, [0, 1], [1, 1]);
 
   const [videoError, setVideoError] = useState(null);
-  const [videoLoaded, setVideoLoaded] = useState(false);
 
   // Get video URL with error handling
   const videoUrl = publicUrl("videos/smooth.webm");
@@ -82,7 +79,6 @@ export const VideoBackground = () => {
   };
 
   const handleVideoLoad = () => {
-    setVideoLoaded(true);
     console.log('✅ Background video loaded successfully');
   };
 
