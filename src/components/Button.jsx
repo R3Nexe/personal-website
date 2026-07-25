@@ -43,13 +43,13 @@ const Button = () => {
         transition={{ ease: "easeOut", duration: 1 }}
       >
         <a
-          className="btn-bracket btn-bracket--primary"
+          className="btn-bracket btn-bracket--primary cursor-target"
           href="/resume/nishant_kumar.pdf"
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleClick}
         >
-          <span/>
+          <span className="btn-bracket-corner" />
           View Resume
         </a>
       </motion.div>

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import FuzzyText from "./FuzzyText";
 
 export const PageHeader = ({ eyebrow, title }) => (
   <div className="page-header">
@@ -17,7 +18,19 @@ export const PageHeader = ({ eyebrow, title }) => (
       animate={{ opacity: 1, filter: "blur(0px)" }}
       transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
     >
-      {title}
+      <FuzzyText
+        fontSize="3rem"
+        fontWeight={400}
+        fontFamily="'Orbitron', sans-serif"
+        color="#EAEAEA"
+        enableHover={true}
+        baseIntensity={0.15}
+        hoverIntensity={0.4}
+        fuzzRange={14}
+        fps={30}
+      >
+        {title}
+      </FuzzyText>
     </motion.h1>
   </div>
 );

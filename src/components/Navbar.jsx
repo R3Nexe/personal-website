@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // hamburger + close icons
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { pathname } = useLocation();
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Projects", path: "/projects" },
@@ -20,7 +21,12 @@ export const Navbar = () => {
             <li key={link.name} className="uppercase font-sub-head">
               <Link
                 to={link.path}
-                className="text-sm font-medium text-neutral-300 transition-colors hover:text-bright-purple hover:font-bold"
+                aria-current={pathname === link.path ? "page" : undefined}
+                className={`cursor-target text-sm font-medium transition-colors hover:text-bright-purple hover:font-bold ${
+                  pathname === link.path
+                    ? "text-bright-purple font-bold"
+                    : "text-neutral-300"
+                }`}
               >
                 {link.name}
               </Link>
@@ -30,7 +36,7 @@ export const Navbar = () => {
       </div>
       {/* mobile sidebar */}
       <div className="md:hidden flex items-end">
-        <button className="p-2 backdrop-blur-3xl rounded-full"
+        <button className="cursor-target p-2 backdrop-blur-3xl rounded-full"
         onClick={() => setIsOpen(true)}>
           <Menu className="size-10"></Menu>
         </button>
@@ -44,17 +50,22 @@ export const Navbar = () => {
             }`}
           >
             <div className="flex items-end">
-              <button  onClick={() => setIsOpen(false)}>
+              <button className="cursor-target" onClick={() => setIsOpen(false)}>
                 <X className="size-10"></X>
                 </button>
             </div>
             <ul className="flex flex-col w-full gap-4">
               {navLinks.map((link) => (
 
-                <li key={link.name} className="uppercase text-8xl">
+                <li key={link.name} className="uppercase text-6xl sm:text-7xl">
                   <Link
                     to={link.path}
-                    className="font-medium text-neutral-300 transition-colors hover:text-bright-purple hover:font-bold"
+                    aria-current={pathname === link.path ? "page" : undefined}
+                    className={`cursor-target font-medium transition-colors hover:text-bright-purple hover:font-bold ${
+                      pathname === link.path
+                        ? "text-bright-purple font-bold"
+                        : "text-neutral-300"
+                    }`}
                     onClick={() => setIsOpen(false)} // close after navigation
                   >
                     {link.name}

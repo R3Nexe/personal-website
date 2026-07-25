@@ -4,6 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import { Navbar } from "./components/Navbar";
 import Loader from "./components/Loader";
 import HudChrome from "./components/HudChrome";
+import TargetCursor from "./components/TargetCursor";
 
 import { setupGlobalErrorHandling } from "./lib/errorLogger";
 
@@ -28,6 +29,14 @@ const App = () => {
         {isLoading && <Loader key="loader" setLoading={setIsLoading} />}
       </AnimatePresence>
       <HudChrome />
+      <TargetCursor
+        targetSelector=".cursor-target"
+        spinDuration={2}
+        hideDefaultCursor={true}
+        parallaxOn={true}
+        cursorColor="rgba(234, 234, 234, 0.9)"
+        cursorColorOnTarget="#9A70F5"
+      />
       <main>
         <Navbar />
         <Suspense fallback={<div className="min-h-screen w-full" />}>

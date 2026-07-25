@@ -43,13 +43,13 @@ export default function Gallery() {
         <PageHeader eyebrow="Visual Archive" title="My Gallery" />
 
         {/* Category filter */}
-        <div className="fixed mt-[70vh] p-3 flex flex-wrap w-full  z-3 gap-2 justify-center">
+        <div className="fixed bottom-6 left-0 p-3 flex flex-wrap w-full z-3 gap-2 justify-center">
           <div className=" py-4 backdrop-blur-3xl bg-black/60 px-5 text-sm md:text-base rounded-3xl drop-shadow-2xl">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-3 py-1 z-2 mx-1 rounded-3xl border-white/50 ${
+              className={`cursor-target px-3 py-1 z-2 mx-1 rounded-3xl border-white/50 ${
                 activeCategory === cat
                   ? "bg-bright-purple text-white"
                   : "text-white hover:bg-white/60 hover:text-black transition-all duration-300"
@@ -62,7 +62,7 @@ export default function Gallery() {
         </div>
 
         {/* Masonry layout */}
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
+        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 pb-24">
           {isLoading
             ? SKELETON_HEIGHTS.map((height, idx) => (
                 <div

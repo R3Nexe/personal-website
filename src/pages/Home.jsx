@@ -1,14 +1,27 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../components/Button";
 import RotatingText from "../components/RotatingText";
 import TelemetryBlock from "../components/TelemetryBlock";
 import { About } from "../components/About";
 import { VideoBackground } from "../components/VideoBg";
 
+const formatClock = (date) =>
+  date.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+    timeZone: "UTC",
+  });
+
 const Home = () => {
   // Real client telemetry for the hero readout — factual only, never fabricated
-  const { scrollYProgress } = useScroll();
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
   const telemetryY = useTransform(scrollYProgress, [0, 1], [0, 140]);
 
   const [viewport, setViewport] = useState({ width: 0, height: 0, tz: "" });
@@ -25,12 +38,19 @@ const Home = () => {
     return () => window.removeEventListener("resize", readViewport);
   }, []);
 
+  const [time, setTime] = useState(() => formatClock(new Date()));
+  useEffect(() => {
+    const interval = setInterval(() => setTime(formatClock(new Date())), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <VideoBackground variant="home" />
       {/* Hero Section */}
       <motion.section
         id="hero"
+        ref={heroRef}
         className="flex flex-col justify-center items-center h-screen w-full px-5 text-center"
         initial={{ opacity: 0, scale: 0.7,translateY:-100 }}
         animate={{ opacity: 1, scale: 1, translateY:0 }}
@@ -40,15 +60,17 @@ const Home = () => {
           <TelemetryBlock
             lines={[
               ["SYS.CLIENT", `VIEWPORT ${viewport.width}×${viewport.height}`],
-              ["SYS.CLIENT", `TZ ${viewport.tz}`],
               ["SYS.ORIGIN", "ODISHA · IN"],
               ["SYS.RENDER", "REACT19 // VITE7"],
+              ["SYS.CLOCK", `${time} UTC`],
             ]}
+
           />
+
         </motion.div>
         <div className="max-w-4xl">
           <motion.h1
-            className="font-medium text-6xl sm:text-7xl md:text-8xl"
+            className="text-6xl sm:text-7xl md:text-8xl"
             initial={{ opacity: 0, translateY: -50 }}
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
@@ -65,7 +87,7 @@ const Home = () => {
               "Photographer",
               "Coffee Nerd",
             ]}
-            mainClassName="px-2 md:px-3 text-highlight font-head md:text-4xl text-2xl overflow-hidden py-1 md:py-2 justify-center rounded-lg"
+            mainClassName="px-2 md:px-3 font-head md:text-4xl text-2xl overflow-hidden py-1 md:py-2 justify-center rounded-lg"
             staggerFrom="last"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}

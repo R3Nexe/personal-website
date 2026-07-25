@@ -107,19 +107,13 @@ export const About = () => {
 
   const experienceContent = (
     <ul className="text-sm text-gray-300 space-y-2 text-start">
-      <li className="text-base ">
+      <li className="text-base">
         - Machine Learning Intern at Elevate labs (45 days)
-      </li>
-      <li className="text-base">
-
-      </li>
-      <li className="text-base">
-
       </li>
     </ul>
   );
   const panelClasses =
-    "group relative border border-white/10 backdrop-blur-sm bg-[#1a1a1a]/40 hover:backdrop-blur-xl inset-0 shadow-xl transform transition-all duration-500 ease-out";
+    "cursor-target group relative border border-white/10 backdrop-blur-sm bg-[#1a1a1a]/40 hover:backdrop-blur-xl inset-0 shadow-xl transform transition-all duration-500 ease-out";
   const cardClasses = `${panelClasses} p-4 flex items-center justify-center`;
   const barClasses = panelClasses;
   const targetLock = (
@@ -243,7 +237,7 @@ export const About = () => {
               <div className="w-full flex justify-center gap-2 pb-3 mb-3">
                 <button
                   onClick={() => setActiveTab("education")}
-                  className={`px-3 py-2 rounded-full text-sm font-semibold ${
+                  className={`px-3 py-2 cursor-target rounded-full text-sm font-semibold ${
                     activeTab === "education"
                       ? "bg-bright-purple"
                       : "bg-white/10"
@@ -253,7 +247,7 @@ export const About = () => {
                 </button>
                 <button
                   onClick={() => setActiveTab("experience")}
-                  className={`px-3 py-2 rounded-full text-sm font-semibold ${
+                  className={`px-3 py-2 cursor-target rounded-full text-sm font-semibold ${
                     activeTab === "experience"
                       ? "bg-bright-purple"
                       : "bg-white/10"
@@ -378,7 +372,7 @@ export const About = () => {
               <div className="w-full flex-center gap-2 pb-2 mb-2">
                 <button
                   onClick={() => setActiveTab("education")}
-                  className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                  className={`px-3 py-1 cursor-target rounded-full text-sm font-semibold ${
                     activeTab === "education"
                       ? "bg-bright-purple"
                       : "bg-white/10"
@@ -388,7 +382,7 @@ export const About = () => {
                 </button>
                 <button
                   onClick={() => setActiveTab("experience")}
-                  className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                  className={`px-3 py-1 cursor-target rounded-full text-sm font-semibold ${
                     activeTab === "experience"
                       ? "bg-bright-purple"
                       : "bg-white/10"
@@ -398,12 +392,13 @@ export const About = () => {
                 </button>
               </div>
 
-              {/* Fixed height content area */}
+              {/* Content area, vertically centered so short tabs (Experience)
+                  don't leave a void under the taller tech-stack column */}
               <motion.div
                 initial="hidden"
                 animate="visible"
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex-col"
+                className="flex flex-col flex-1 justify-center"
                 style={{ minHeight: "120px" }}
               >
                 {activeTab === "education"

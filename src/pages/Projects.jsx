@@ -80,7 +80,7 @@ const Projects = () => {
                   whileHover={{ scale: 1.05 }}
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 z-2 mx-1 rounded-3xl border border-transparent ${
+                  className={`cursor-target px-4 py-2 z-2 mx-1 rounded-3xl border border-transparent ${
                     activeCategory === cat
                       ? "bg-bright-purple text-white"
                       : "text-white hover:bg-white/60 hover:text-black transition-all duration-300"

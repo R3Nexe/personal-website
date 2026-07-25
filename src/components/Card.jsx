@@ -118,7 +118,7 @@ export default function Card({
                 href={gitLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-bracket btn-bracket--ghost z-2 flex-1 justify-center"
+                className="btn-bracket btn-bracket--ghost cursor-target z-2 flex-1 justify-center"
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="btn-bracket-corner" />
@@ -130,7 +130,7 @@ export default function Card({
                 href={liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-bracket btn-bracket--primary z-2 flex-1 justify-center"
+                className="btn-bracket btn-bracket--primary cursor-target z-2 flex-1 justify-center"
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="btn-bracket-corner" />

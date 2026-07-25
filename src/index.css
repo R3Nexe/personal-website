@@ -15,11 +15,18 @@
 
 html,
 body {
+    position: relative;
     width: 100%;
     background-color: #000000;
     color: #EAEAEA;
     scroll-behavior: smooth;
     overflow-x: hidden;
+}
+
+::selection {
+    background-color: transparent;
+    color: var(--color-bright-purple);
+    text-shadow: 0 0 16px rgba(154, 112, 245, 0.3);
 }
 
 @utility flex-center {
@@ -51,7 +58,7 @@ body {
         }
 
         a {
-            @apply cursor-pointer text-nowrap md:text-base text-sm;
+            @apply cursor-pointer text-nowrap;
         }
 
         ul {
@@ -64,7 +71,7 @@ body {
         @apply relative z-10 min-h-dvh w-full;
 
         h1 {
-            @apply text-4xl md:text-7xl md:mb-1.5 text-bright-purple text-center font-head pb-2.5;
+            @apply md:mb-1.5 text-bright-purple text-center font-head pb-2.5;
         }
     }
 
@@ -172,32 +179,6 @@ body {
         right: 14px;
         border-bottom: 1.5px solid;
         border-right: 1.5px solid;
-    }
-
-    .hud-meta {
-        @apply fixed font-sub-head hidden sm:flex items-center gap-2;
-        bottom: 18px;
-        font-size: 11px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: rgba(234, 234, 234, 0.35);
-    }
-
-    .hud-meta--left {
-        left: 20px;
-    }
-
-    .hud-meta--right {
-        right: 20px;
-    }
-
-    .hud-meta-dot {
-        width: 5px;
-        height: 5px;
-        border-radius: 9999px;
-        background: #82FF9E;
-        box-shadow: 0 0 4px 1px rgba(130, 255, 158, 0.6);
-        animation: hud-pulse 2.4s ease-in-out infinite;
     }
 
     @keyframes hud-pulse {
@@ -326,32 +307,6 @@ body {
         transition: color 0.3s, background-color 0.3s, border-color 0.3s;
     }
 
-    .btn-bracket::before,
-    .btn-bracket::after {
-        font-size: 1.4em;
-        line-height: 1;
-        color: rgba(234, 234, 234, 0.4);
-        transition: color 0.3s, transform 0.3s;
-    }
-
-    .btn-bracket::before {
-        content: "[";
-        margin-right: 10px;
-    }
-
-    .btn-bracket::after {
-        content: "]";
-        margin-left: 10px;
-    }
-
-    .btn-bracket:hover::before {
-        transform: translateX(-3px);
-    }
-
-    .btn-bracket:hover::after {
-        transform: translateX(3px);
-    }
-
     .btn-bracket-corner {
         @apply absolute pointer-events-none opacity-0 transition-opacity duration-300;
         top: 4px;
@@ -377,11 +332,6 @@ body {
         border-color: rgba(154, 112, 245, 0.85);
     }
 
-    .btn-bracket--primary:hover::before,
-    .btn-bracket--primary:hover::after {
-        color: #ffffff;
-    }
-
     .btn-bracket--primary .btn-bracket-corner {
         border-color: rgba(130, 255, 158, 0.9);
     }
@@ -397,11 +347,6 @@ body {
         color: #ffffff;
     }
 
-    .btn-bracket--ghost:hover::before,
-    .btn-bracket--ghost:hover::after {
-        color: rgba(154, 112, 245, 0.9);
-    }
-
     .btn-bracket--ghost .btn-bracket-corner {
         border-color: rgba(154, 112, 245, 0.9);
     }
@@ -410,8 +355,7 @@ body {
         @apply hidden lg:block font-mono text-left pointer-events-none select-none;
         font-size: 10px;
         line-height: 1.8;
-        letter-spacing: 0.01em;
-        color: rgba(234, 234, 234, 0.3);
+        color: rgba(234, 234, 234, 0.4);
     }
 
     .telemetry-block p {
@@ -419,20 +363,33 @@ body {
         white-space: nowrap;
     }
 
-    .telemetry-label {
-        color: rgba(154, 112, 245, 0.55);
+    .telemetry-cursor {
+        display: inline-block;
+        width: 6px;
+        height: 10px;
+        margin-left: 2px;
+        background: rgba(234, 234, 234, 0.4);
+        animation: hud-pulse 0.9s step-end infinite;
+        vertical-align: -1px;
     }
 
-    #about .telemetry-label,
-    #hero .telemetry-label {
-        font-size: inherit;
-        font-weight: inherit;
+    .telemetry-fuzzy-line {
+        line-height: 0;
+        margin-bottom: 4px;
+    }
+
+    .telemetry-fuzzy-line:last-child {
+        margin-bottom: 0;
+    }
+
+    .telemetry-fuzzy-line canvas {
+        display: block;
     }
 
     .hero-telemetry {
         @apply absolute;
-        top: 24px;
-        left: 24px;
+        top: 40px;
+        left: 40px;
     }
 
 }
