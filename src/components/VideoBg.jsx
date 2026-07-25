@@ -1,6 +1,6 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { publicUrl } from "../lib/assets";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // Error logging utility for video operations
 const logVideoError = (context, error, additionalInfo = {}) => {
@@ -17,14 +17,42 @@ const logVideoError = (context, error, additionalInfo = {}) => {
 };
 
 export const VideoBackground = () => {
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
-  const scaleValue = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
+  // Reduced motion: hold scale steady so scroll no longer drives a parallax zoom.
+  const scaleValue = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [1, 1] : [1, 0.5]
+  );
   const opacityValue = useTransform(scrollYProgress, [0, 1], [1, 1]);
 
+  const videoRef = useRef(null);
   const [videoError, setVideoError] = useState(null);
 
   // Get video URL with error handling
   const videoUrl = publicUrl("videos/smooth.webm");
+
+  // Reduced motion: don't loop the accretion-disk footage. Seek to a
+  // representative frame and hold it, so the hero keeps its glow without motion.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!prefersReducedMotion || !video) return;
+    const freeze = () => {
+      try {
+        if (isFinite(video.duration) && video.duration > 0) {
+          video.currentTime = Math.min(2, video.duration / 2);
+        }
+      } catch {
+        /* metadata not ready yet; the loadedmetadata handler retries */
+      }
+      video.pause();
+    };
+    video.pause();
+    if (video.readyState >= 1) freeze();
+    video.addEventListener("loadedmetadata", freeze);
+    return () => video.removeEventListener("loadedmetadata", freeze);
+  }, [prefersReducedMotion, videoError]);
 
   useEffect(() => {
     if (!videoUrl) {
@@ -89,15 +117,21 @@ export const VideoBackground = () => {
   return (
     <div className="fixed h-screen w-full top-0 left-0 z-[0]">
       {videoError ? (
-        // Fallback background when video fails
+        // Fallback when the video fails: stay in the Event Horizon world — the
+        // void with a faint nebula-purple gravity-well where the disk would be.
         <div
-          className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900"
-          style={{ height: '100vh' }}
+          className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+          style={{
+            height: '100vh',
+            background:
+              'radial-gradient(circle at 50% 45%, rgba(154, 112, 245, 0.18), #000000 60%)',
+          }}
         >
           <div className="absolute inset-0 bg-black/25"></div>
         </div>
       ) : (
         <motion.video
+          ref={videoRef}
           style={{
             scale: scaleValue,
             opacity: opacityValue,
@@ -105,9 +139,8 @@ export const VideoBackground = () => {
           initial={{scale:0}}
           animate={{scale:1}}
           transition={{duration:1.2}}
-
-          autoPlay
-          loop
+          autoPlay={!prefersReducedMotion}
+          loop={!prefersReducedMotion}
           muted
           playsInline
           preload="auto"

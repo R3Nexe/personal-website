@@ -94,7 +94,7 @@ export const About = () => {
   const educationContent = (
     <ul className="text-sm text-gray-300 space-y-3 text-start">
       <li className="text-base">
-        - Institute of Technical Research and Education, Bhubaneshwar (2024–present) <span className="text-base text-green font-semibold">GPA: 9.68/10, B.Tech</span>
+        - Institute of Technical Research and Education, Bhubaneshwar (2024–present) B.Tech <span className="text-base text-green font-semibold">GPA: 9.68/10</span>
       </li>
       <li className="text-base">
         - Mother's Public School, Bhubaneshwar, Higher Secondary CBSE (2022-2024) <span className="text-base text-green font-semibold">86%</span>
@@ -148,6 +148,7 @@ export const About = () => {
                     className="invert h-8 w-8 sm:h-10 sm:w-10"
                     href={"https://github.com/R3Nexe"}
                     src={publicUrl("icons/github.svg")}
+                    alt="GitHub profile"
                   ></SocialIcon>
                 </MagneticButton>
               </div>
@@ -157,6 +158,7 @@ export const About = () => {
                     className="invert h-8 w-8 sm:h-10 sm:w-10"
                     href={"https://www.linkedin.com/in/nishant-kumar-b91a96325/"}
                     src={publicUrl("icons/linkedin.svg")}
+                    alt="LinkedIn profile"
                   ></SocialIcon>
                 </MagneticButton>
               </div>
@@ -181,7 +183,7 @@ export const About = () => {
                   ))}
                 </div>
               </section>
-              <hr />
+              <hr className="border-white/10" />
               {/* Library */}
               <section>
                 <h2 className="font-medium font-head text-base sm:text-lg">Libraries</h2>
@@ -196,7 +198,7 @@ export const About = () => {
                   ))}
                 </div>
               </section>
-              <hr />
+              <hr className="border-white/10" />
               {/* Framework */}
               <section>
                 <h2 className="font-medium font-head text-base sm:text-lg">Frameworks</h2>
@@ -211,7 +213,7 @@ export const About = () => {
                   ))}
                 </div>
               </section>
-              <hr />
+              <hr className="border-white/10" />
               {/* Software */}
               <section>
                 <h2 className="font-medium font-head text-base sm:text-lg">Software</h2>
@@ -290,6 +292,7 @@ export const About = () => {
                   className="invert h-7 w-7"
                   href={"https://github.com/R3Nexe"}
                   src={publicUrl("icons/github.svg")}
+                  alt="GitHub profile"
                 ></SocialIcon>
               </MagneticButton>
               <MagneticButton>
@@ -297,6 +300,7 @@ export const About = () => {
                   className="invert h-7 w-7"
                   href={"https://www.linkedin.com/in/nishant-kumar-b91a96325/"}
                   src={publicUrl("icons/linkedin.svg")}
+                  alt="LinkedIn profile"
                 ></SocialIcon>
               </MagneticButton>
             </div>

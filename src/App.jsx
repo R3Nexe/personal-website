@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, MotionConfig } from "framer-motion";
 import { Navbar } from "./components/Navbar";
 import Loader from "./components/Loader";
 import HudChrome from "./components/HudChrome";
@@ -24,32 +24,36 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <AnimatePresence mode="wait">
-        {isLoading && <Loader key="loader" setLoading={setIsLoading} />}
-      </AnimatePresence>
-      <HudChrome />
-      <TargetCursor
-        targetSelector=".cursor-target"
-        spinDuration={2}
-        hideDefaultCursor={true}
-        parallaxOn={true}
-        cursorColor="rgba(234, 234, 234, 0.9)"
-        cursorColorOnTarget="#9A70F5"
-      />
-      <main>
-        <Navbar />
-        <Suspense fallback={<div className="min-h-screen w-full" />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/tools" element={<Tools />} />
-            <Route path="/uses" element={<Uses />} />
-            <Route path="/gallery" element={<Gallery />} />
-          </Routes>
-        </Suspense>
-      </main>
-    </Router>
+    // reducedMotion="user" makes every framer-motion animation honour the OS
+    // setting: transform/layout moves are dropped, opacity fades are kept.
+    <MotionConfig reducedMotion="user">
+      <Router>
+        <AnimatePresence mode="wait">
+          {isLoading && <Loader key="loader" setLoading={setIsLoading} />}
+        </AnimatePresence>
+        <HudChrome />
+        <TargetCursor
+          targetSelector=".cursor-target"
+          spinDuration={8}
+          hideDefaultCursor={true}
+          parallaxOn={true}
+          cursorColor="rgba(234, 234, 234, 0.7)"
+          cursorColorOnTarget="#9A70F5"
+        />
+        <main>
+          <Navbar />
+          <Suspense fallback={<div className="min-h-screen w-full" />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/tools" element={<Tools />} />
+              <Route path="/uses" element={<Uses />} />
+              <Route path="/gallery" element={<Gallery />} />
+            </Routes>
+          </Suspense>
+        </main>
+      </Router>
+    </MotionConfig>
   );
 };
 

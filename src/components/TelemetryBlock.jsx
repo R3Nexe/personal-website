@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import FuzzyText from "./FuzzyText";
 
 const TYPE_SPEED_MS = 18;
@@ -14,17 +15,24 @@ export const TelemetryBlock = ({ lines, className = "" }) => {
   const initialLines = useRef(lines).current;
   const fullText = initialLines.map(([label, value]) => `${label} ${value}`).join("\n");
 
+  const prefersReducedMotion = useReducedMotion();
+
   const [typedCount, setTypedCount] = useState(0);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
+    // Reduced motion: skip the type-out and settle on the final render at once.
+    if (prefersReducedMotion) {
+      setDone(true);
+      return;
+    }
     if (typedCount >= fullText.length) {
       setDone(true);
       return;
     }
     const timeout = setTimeout(() => setTypedCount((c) => c + 1), TYPE_SPEED_MS);
     return () => clearTimeout(timeout);
-  }, [typedCount, fullText]);
+  }, [typedCount, fullText, prefersReducedMotion]);
 
   if (done) {
     return (

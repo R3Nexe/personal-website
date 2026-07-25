@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useReducedMotion } from 'framer-motion';
 
 const FuzzyText = ({
   children,
@@ -22,6 +23,7 @@ const FuzzyText = ({
   className = ''
 }) => {
   const canvasRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     let animationFrameId;
@@ -122,6 +124,13 @@ const FuzzyText = ({
       canvas.width = offscreenWidth + horizontalMargin * 2;
       canvas.height = tightHeight + verticalMargin * 2;
       ctx.translate(horizontalMargin, verticalMargin);
+
+      // Reduced motion: paint the glyphs once, crisp and still. No rAF jitter
+      // loop, no glitch, no hover fuzz — just legible static text.
+      if (prefersReducedMotion) {
+        ctx.drawImage(offscreen, 0, 0);
+        return;
+      }
 
       const interactiveLeft = horizontalMargin + xOffset;
       const interactiveTop = verticalMargin;
@@ -302,7 +311,8 @@ const FuzzyText = ({
     glitchInterval,
     glitchDuration,
     gradient,
-    letterSpacing
+    letterSpacing,
+    prefersReducedMotion
   ]);
 
   return <canvas ref={canvasRef} className={className} />;

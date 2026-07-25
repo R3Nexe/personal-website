@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 // Error logging utility for Button component
 const logButtonError = (context, error, additionalInfo = {}) => {
   const timestamp = new Date().toISOString();
@@ -37,22 +35,16 @@ const Button = () => {
 
   return (
     <div className="flex justify-center pt-3">
-      <motion.div
-        initial={{ translateY: 50, opacity: 0 }}
-        animate={{ translateY: 0, opacity: 1 }}
-        transition={{ ease: "easeOut", duration: 1 }}
+      <a
+        className="btn-bracket btn-bracket--primary cursor-target"
+        href="/resume/nishant_kumar.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={handleClick}
       >
-        <a
-          className="btn-bracket btn-bracket--primary cursor-target"
-          href="/resume/nishant_kumar.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={handleClick}
-        >
-          <span className="btn-bracket-corner" />
-          View Resume
-        </a>
-      </motion.div>
+        <span className="btn-bracket-corner" />
+        View Resume
+      </a>
     </div>
   );
 };

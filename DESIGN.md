@@ -151,6 +151,8 @@ This system is flat by default and uses glow, not shadow, to signal depth. Cards
 
 **The Glitch.** A brief purple/Signal-Green chromatic-split echo (two 1-2px offset colored shadows plus a 1px jitter), signature to this system's HUD chrome. On `HudChrome`'s four fixed corner brackets it fires ambiently — a short flicker roughly every 7s, staggered per corner so the four never glitch in sync, reading as independent sensor noise rather than a single repeating beat. On `Card`'s target-lock corners it fires exactly once, on hover, as part of the lock-on: `opacity: 0.3` at rest → glitch flash → settles to a solid bright bracket. Never applied to text or fills, only to the corner-bracket motif, and never on more than one component family's corners without reason.
 
+**The Reduced-Motion Rule.** The instrument stays alive by default, but the whole motion system collapses to a calm still frame when the visitor requests `prefers-reduced-motion: reduce` — and this is honored at every layer, not just in CSS. Framer Motion respects it globally via `<MotionConfig reducedMotion="user">` in `App.jsx` (transforms drop, opacity fades stay); an unlayered CSS media query dampens the looping HUD glitch/pulse keyframes to a visible end-state; the GSAP `TargetCursor` spin and the typewriter cursor blink are gated off; the `FuzzyText` canvas is painted once, crisp and still; and `VideoBg` freezes the accretion-disk footage on a representative still frame (`autoPlay`/`loop` off, seeked and paused) rather than looping. Any new motion must add a reduced-motion path — a looping or auto-advancing effect that ignores the preference is a defect, not atmosphere.
+
 ## Shapes
 
 Three shape languages coexist, each doing a distinct job. Fully-pill (`rounded-full`) marks the site's *persistent* controls — the nav capsule, the mobile menu button, filter chips — things that are always present, always available. Sharp, unrounded corners (`0px`) mark *action* buttons — View Resume, Github, Live Demo — a deliberate contrast against the pill language: a button you press to do something reads as an instrument control, not a soft marketing affordance. `rounded-2xl` (16px) is for anything you read (project/uses/tech cards); `rounded-3xl` appears on the gallery's floating filter bar. Borders are hairline and low-opacity (`border-[#454545]/50`, `border-white/30`) rather than solid frames — they separate glass from void without competing with it.
@@ -183,17 +185,30 @@ Replaced the earlier pill/gradient buttons system-wide, directly modeled on `ins
 ### Navigation
 - **Style:** Floating pill capsule, centered, `border-white/30` hairline, `backdrop-blur-xl`, fixed to viewport top.
 - **Typography:** Label role, uppercase, `font-sub-head` (Exo 2).
-- **States:** Default `text-neutral-300`; hover/active shift to Nebula Purple with a weight bump to bold — color and weight change together, not color alone.
-- **Mobile:** Full-screen blurred takeover (`backdrop-blur-2xl` over `bg-black/50`) with giant (`text-8xl`) stacked uppercase links, not a slide-out drawer.
+- **States:** Default `text-neutral-300`; hover/active shift to Nebula Purple with a weight bump to bold — color and weight change together, not color alone. Active and inactive carry *mutually exclusive* weights (`font-bold` vs `font-medium`), never both on one element, so the bump actually fires.
+- **Mobile:** Full-screen blurred takeover (`backdrop-blur-2xl` over `bg-black/50`) with giant (`text-6xl`/`text-7xl`) stacked uppercase links, vertically centered into the thumb zone, not a slide-out drawer. It is a **real modal**: `role="dialog"` + `aria-modal="true"`, focus moves to the close button (top-right) on open and returns to the hamburger on close, `Tab` is trapped within it, `Escape` closes it, and `body` scroll is locked while open.
+- **Accessibility:** The `<nav>` carries `aria-label="Primary"`; the icon-only hamburger and close buttons have `aria-label`s, and the hamburger exposes `aria-expanded` + `aria-controls`. Icon links elsewhere (About's GitHub/LinkedIn) name themselves via `aria-label`, with the inner image marked decorative.
 
 ### Magnetic Button (signature component)
 A physics-based wrapper (`framer-motion` spring, `mass: 0.1`) that lets icons and social links drift toward the cursor as it approaches, then spring back on mouse-leave. This is the system's most literal expression of its own North Star — content behaving as if pulled by a nearby gravity well — and should be reused for any new small interactive icon/CTA rather than reinvented.
+
+### Target Cursor (signature component, `TargetCursor.jsx`)
+A GSAP-driven reticle that replaces the system cursor site-wide (mounted once in `App.jsx`, pointer-tracked). At rest it is deliberately quiet: a hairline (`1.5px`) four-corner bracket in dim off-white (`rgba(234,234,234,0.7)`) that sweeps in a slow, calm rotation (`spinDuration` 8s — not a fidgety twirl). When it approaches any `.cursor-target` element it *locks on*: the spin stops, the brackets snap to the element's corners and turn solid Nebula Purple — the same "target acquired" payoff as `Card`'s corners, and the system's clearest gravity-well gesture. Restraint is the rule here: the drama lives in the lock-on, never in the resting state. Hidden entirely on touch/small screens (there is no cursor to replace), and under reduced motion it stops spinning while still tracking the pointer.
+
+### Focus Ring (accessibility treatment)
+Because the custom cursor hides the system pointer, keyboard focus needs a clear, on-system indicator. A single global `:focus-visible` rule draws a 2px Nebula-Purple outline (`rgba(154,112,245,0.9)`) with a 2px offset — never the browser-default blue, and only for keyboard focus, not mouse clicks. It is the one focus treatment for the whole site; don't leave interactive elements on the UA default.
 
 ### HUD Chrome (signature system layer)
 A fixed, `pointer-events-none`, site-wide atmosphere layer (`HudChrome.jsx`) mounted once in `App.jsx`, sitting above the void/video (z-index 1) and below all real content and nav (z-index 2+): a 64px hairline purple grid (`rgba(154,112,245,0.05)`), a faint SVG-noise grain (`opacity 0.035`, `mix-blend-mode: overlay`), four 20px corner registration brackets that fade in staggered on mount and ambiently glitch (The Glitch, staggered per corner, ~every 7s), and two bottom-edge micro-metadata readouts — `Odisha, India` (bottom-left, factual) and a live `HH:MM:SS UTC` clock with a pulsing Signal Green status dot (bottom-right, factual and genuinely live, never a fabricated "online" claim). This is what makes the Event Horizon read as a persistent instrument, not just a hero decoration — inspired by mission-dossier / HUD poster references the user provided directly (grid overlays, corner reticles, tracked metadata, and terminal/glitch chrome are load-bearing parts of that reference set, not incidental).
 
 ### Page Header (signature component)
-`PageHeader.jsx` — the tracked micro-label eyebrow (Nebula Purple, 75% opacity) plus a blur-in Display-role title, with a faint two-ring reticle (`rgba(154,112,245,0.12)` / `0.08`) centered behind it (`z-index: -1`, non-interactive). Used identically on Projects ("Project Log"), Uses ("Equipment Manifest"), Gallery ("Visual Archive"), and Tools ("System Status") so every non-Home page opens the same way. Home's hero keeps its own distinct treatment (the video, the gradient name) rather than adopting `PageHeader` — the hero is allowed to be the one unrepeated moment.
+`PageHeader.jsx` — the tracked micro-label eyebrow (Nebula Purple, 75% opacity) plus a blur-in Display-role title, with a faint two-ring reticle (`rgba(154,112,245,0.12)` / `0.08`) centered behind it (`z-index: -1`, non-interactive). Used identically on Projects ("Project Log"), Uses ("Equipment Manifest"), Gallery ("Visual Archive"), and Tools ("System Status") so every non-Home page opens the same way. Home's hero keeps its own distinct treatment (the video, the solid-purple name) rather than adopting `PageHeader` — the hero is allowed to be the one unrepeated moment.
+
+### Hero Composition (Home only)
+The hero is the system's one unrepeated moment, staged as a single orchestrated reveal (one `heroReveal` parent with `staggerChildren`/`delayChildren`, an exponential ease-out, so telemetry → name → tagline → CTA cascade in together). Its parts:
+- **Name:** solid Nebula-Purple Orbitron over the looping accretion-disk video. Because the name crosses the disk's brightest band, a localized radial scrim sits *behind* the headline block (`.hero-content::before`, a soft black ellipse) as a legibility backdrop — never a gradient on the type itself (The Flat Rule holds); solve name legibility with a backdrop, not by tinting the letters.
+- **Typewriter tagline:** `TextType.jsx` types factual role self-descriptors one character at a time beneath the name, with a blinking Nebula-Purple cursor (`_`). Its slot reserves a fixed min-height so the CTA never shifts as lines wrap or clip. This replaced the earlier per-word rotating-text treatment.
+- **CTA:** the `--primary` bracket button ("View Resume").
 
 ### Target-Lock Corners (card hover accent)
 Two 14px purple corner brackets (top-left, bottom-right) on `Card.jsx`, `opacity: 0` at rest and `opacity: 1` on `group-hover` — a quieter, permanent version of the "computer interface" idea explored in live mode. Obeys the Gravitational Rule exactly: invisible until touched.
@@ -222,6 +237,9 @@ On `#hero`, the block additionally carries a scroll-linked lag: `useScroll()` + 
 - **Do** give every new page a `PageHeader` (eyebrow + title + reticle) instead of a one-off `<h1>` — cohesion across pages depends on reusing it, not restyling it per page.
 - **Do** keep HUD chrome (grid, grain, corner brackets, metadata) factual or purely atmospheric — the live clock is real time, the location is real; never dress up a fabricated status claim as chrome.
 - **Do** keep IBM Plex Mono scoped to genuine measurement/telemetry data only (**The Two-Voice Rule**'s narrow exception) — never a heading, never body copy.
+- **Do** give every new animation a reduced-motion path — under `prefers-reduced-motion` the whole system settles to a still frame (**The Reduced-Motion Rule**).
+- **Do** use the single global Nebula-Purple `:focus-visible` ring for keyboard focus — the custom cursor hides the system pointer, so visible focus is non-negotiable.
+- **Do** solve hero/overlay name legibility with a backdrop scrim behind the text, never by tinting or gradient-filling the letters (**The Flat Rule**).
 
 ### Don't:
 - **Don't** add a resting `box-shadow` for structural elevation — this system has none; depth is glow-on-interaction only.
@@ -231,3 +249,5 @@ On `#hero`, the block additionally carries a scroll-linked lag: `useScroll()` + 
 - **Don't** fill text or a button with a gradient — solid color only (**The Flat Rule**). The only gradients left are card glass-panel tints and the loader's progress fill.
 - **Don't** round the corners of an action button, or leave a persistent control's corners sharp — the two shape languages don't mix (**The Pill-or-Sharp Rule**).
 - **Don't** invent or embellish a telemetry/diagnostic value — every `.telemetry-block` line must read from real browser/session state, or it doesn't ship.
+- **Don't** ship a looping or auto-advancing effect that ignores `prefers-reduced-motion` — every motion layer already honors it, and a new one that doesn't is a defect.
+- **Don't** leave interactive elements on the browser-default (blue) focus outline — the on-brand purple `:focus-visible` ring is the system's one focus treatment.

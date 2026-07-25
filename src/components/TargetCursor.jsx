@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback, useMemo } from 'react';
+import { useReducedMotion } from 'framer-motion';
 import { gsap } from 'gsap';
 
 // A position: fixed element is positioned relative to the viewport UNLESS an
@@ -33,7 +34,7 @@ const getContainingBlockOffset = block => {
 
 const TargetCursor = ({
   targetSelector = '.cursor-target',
-  spinDuration = 2,
+  spinDuration = 8,
   hideDefaultCursor = true,
   hoverDuration = 0.2,
   parallaxOn = true,
@@ -51,6 +52,10 @@ const TargetCursor = ({
   const tickerFnRef = useRef(null);
   const activeStrengthRef = useRef(0);
 
+  // When the visitor asks for reduced motion, the reticle still tracks the
+  // pointer (that's not decorative) but never spins.
+  const prefersReducedMotion = useReducedMotion();
+
   const isMobile = useMemo(() => {
     if (typeof window === 'undefined') return false;
     const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -63,7 +68,7 @@ const TargetCursor = ({
 
   const constants = useMemo(
     () => ({
-      borderWidth: 3,
+      borderWidth: 1.5,
       cornerSize: 12
     }),
     []
@@ -117,6 +122,7 @@ const TargetCursor = ({
       if (spinTl.current) {
         spinTl.current.kill();
       }
+      if (prefersReducedMotion) return;
       spinTl.current = gsap
         .timeline({ repeat: -1 })
         .to(cursor, { rotation: '+=360', duration: spinDuration, ease: 'none' });
@@ -356,7 +362,8 @@ const TargetCursor = ({
     hoverDuration,
     parallaxOn,
     cursorColor,
-    cursorColorOnTarget
+    cursorColorOnTarget,
+    prefersReducedMotion
   ]);
 
   useEffect(() => {
@@ -385,19 +392,19 @@ const TargetCursor = ({
         style={{ willChange: 'transform', backgroundColor: cursorColor }}
       />
       <div
-        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] -translate-x-[150%] -translate-y-[150%] border-r-0 border-b-0"
+        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[1.5px] -translate-x-[150%] -translate-y-[150%] border-r-0 border-b-0"
         style={{ willChange: 'transform', borderColor: cursorColor }}
       />
       <div
-        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] translate-x-1/2 -translate-y-[150%] border-l-0 border-b-0"
+        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[1.5px] translate-x-1/2 -translate-y-[150%] border-l-0 border-b-0"
         style={{ willChange: 'transform', borderColor: cursorColor }}
       />
       <div
-        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] translate-x-1/2 translate-y-1/2 border-l-0 border-t-0"
+        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[1.5px] translate-x-1/2 translate-y-1/2 border-l-0 border-t-0"
         style={{ willChange: 'transform', borderColor: cursorColor }}
       />
       <div
-        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] -translate-x-[150%] translate-y-1/2 border-r-0 border-t-0"
+        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[1.5px] -translate-x-[150%] translate-y-1/2 border-r-0 border-t-0"
         style={{ willChange: 'transform', borderColor: cursorColor }}
       />
     </div>

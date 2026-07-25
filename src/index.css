@@ -75,6 +75,30 @@ body {
         }
     }
 
+    .hero-content {
+        @apply relative;
+    }
+
+    /* Localised scrim: darken the accretion-disk highlight directly behind the
+       headline so the solid-purple name stays legible over the bright ring.
+       A backdrop, never a gradient on the type itself (The Flat Rule holds). */
+    .hero-content::before {
+        content: "";
+        @apply absolute pointer-events-none;
+        top: 45%;
+        left: 50%;
+        width: 126%;
+        height: 116%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+            ellipse at center,
+            rgba(0, 0, 0, 0.62) 0%,
+            rgba(0, 0, 0, 0.42) 38%,
+            transparent 68%
+        );
+        z-index: -1;
+    }
+
     #about {
         h2{
             @apply font-head font-medium
@@ -307,6 +331,34 @@ body {
         transition: color 0.3s, background-color 0.3s, border-color 0.3s;
     }
 
+    /* Signature bracket glyphs: [ label ] in the terminal-menu language, dim at
+       rest, brightening and nudging outward on hover — the button "opens". */
+    .btn-bracket::before,
+    .btn-bracket::after {
+        opacity: 0.4;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .btn-bracket::before {
+        content: "[";
+        margin-right: 0.6em;
+    }
+
+    .btn-bracket::after {
+        content: "]";
+        margin-left: 0.6em;
+    }
+
+    .btn-bracket:hover::before {
+        opacity: 1;
+        transform: translateX(-3px);
+    }
+
+    .btn-bracket:hover::after {
+        opacity: 1;
+        transform: translateX(3px);
+    }
+
     .btn-bracket-corner {
         @apply absolute pointer-events-none opacity-0 transition-opacity duration-300;
         top: 4px;
@@ -323,7 +375,6 @@ body {
 
     .btn-bracket--primary {
         color: rgba(234, 234, 234, 0.9);
-        border-color: rgba(154, 112, 245, 0.3);
     }
 
     .btn-bracket--primary:hover {
@@ -338,7 +389,6 @@ body {
 
     .btn-bracket--ghost {
         color: rgba(154, 112, 245, 0.85);
-        border-color: rgba(154, 112, 245, 0.25);
     }
 
     .btn-bracket--ghost:hover {
@@ -392,4 +442,29 @@ body {
         left: 40px;
     }
 
+}
+
+/* On-brand keyboard focus. The custom cursor hides the system pointer, so a
+   clear, on-system focus ring matters for keyboard users — nebula purple, not
+   the browser-default blue. Only shows for keyboard focus, never mouse clicks. */
+:focus-visible {
+    outline: 2px solid rgba(154, 112, 245, 0.9);
+    outline-offset: 2px;
+}
+
+/* Respect the visitor's reduced-motion preference. Unlayered so it wins the
+   cascade: neutralise the looping HUD glitch/pulse animations and collapse
+   transitions to near-instant. Every keyframe here ends on a visible state
+   (opacity 1, zero offset), so snapping to the end never hides an element.
+   JS-driven motion (framer-motion, GSAP, the canvas fuzz, the video) is gated
+   separately in its own components. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
 }
