@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Button from "../components/Button";
+import GravityName from "../components/GravityName";
 import TextType from "../components/TextType";
 import TelemetryBlock from "../components/TelemetryBlock";
 import { About } from "../components/About";
@@ -122,8 +123,9 @@ const Home = () => {
           <motion.h1
             className="text-6xl sm:text-7xl md:text-8xl"
             variants={heroItem}
+            aria-label="Nishant Kumar"
           >
-            Nishant Kumar
+            <GravityName text="Nishant Kumar" />
           </motion.h1>
 
           <motion.div
