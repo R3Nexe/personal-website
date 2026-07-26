@@ -46,9 +46,10 @@ export const VideoBackground = () => {
     // Reduced motion: hold perfectly still — no gravitational buffeting.
     if (prefersReducedMotion) return;
 
-    const AMP = 2; // px — peak positional jolt
+   
+    const AMP = 1; // px — peak positional jolt
     const ROT = 0.3; // deg — peak rotational jolt
-    const STEP = 50; // ms between jolts — lower = more frantic
+    const STEP = 45; // ms between jolts — lower = more frantic
     const rand = (m) => (Math.random() * 2 - 1) * m;
 
     let raf = 0;
