@@ -121,6 +121,74 @@ body {
         letter-spacing: 0.14em;
         color: rgba(234, 234, 234, 0.5);
         margin-bottom: 14px;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .techstack-label:hover {
+        color: var(--color-bright-purple);
+        text-shadow: 0 0 10px rgba(154, 112, 245, 0.4);
+        cursor: pointer;
+    }
+
+    /* Cyberpunk-terminal glass panel (About bento grid): purple-tinted glass
+       with a faint grain texture via ::after, so panels read as an unstable
+       holo-terminal surface rather than flat glass. Sharpens to a brighter
+       purple border and a heavier blur on hover. */
+    .glass-panel {
+        @apply relative overflow-hidden backdrop-blur-md transition-all duration-500;
+        border: 1px solid rgba(154, 112, 245, 0.2);
+        background-color: rgba(10, 10, 10, 0.6);
+    }
+
+    .glass-panel::after {
+        content: "";
+        @apply absolute inset-0 pointer-events-none;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .glass-panel:hover {
+        border-color: rgba(154, 112, 245, 0.6);
+        backdrop-filter: blur(24px);
+    }
+
+    /* Rare, brief signal-interference blip on a panel border — same
+       purple/green glitch language as .hud-corner, dialed down to an
+       occasional flash (10s cycle) rather than a constant jitter. */
+    .panel-glitch {
+        animation: panel-border-jitter 10s linear infinite;
+    }
+
+    @keyframes panel-border-jitter {
+        0%, 97%, 100% { border-color: rgba(154, 112, 245, 0.2); transform: translate(0, 0); }
+        97.5% { border-color: rgba(130, 255, 158, 0.6); transform: translate(0.5px, -0.5px); }
+        98.5% { border-color: rgba(154, 112, 245, 0.6); transform: translate(-0.5px, 0.5px); }
+    }
+
+    /* Subtle terminal signal flicker — a barely-there opacity dip every few
+       seconds. Applied only to the decorative CRT scanline overlay. */
+    .terminal-flicker {
+        animation: terminal-flicker 6s infinite;
+    }
+
+    @keyframes terminal-flicker {
+        0%, 80%, 100% { opacity: 1; }
+        82% { opacity: 0.96; }
+        84% { opacity: 0.98; }
+        86% { opacity: 0.95; }
+        88% { opacity: 0.99; }
+    }
+
+    /* CRT scanline texture, scoped to whichever section renders it (e.g.
+       About) via position:absolute on a relatively-positioned ancestor —
+       not a global overlay like .hud-grain. */
+    .crt-overlay {
+        @apply absolute inset-0 pointer-events-none;
+        background:
+            linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%),
+            linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.05));
+        background-size: 100% 4px, 3px 100%;
+        opacity: 0.15;
     }
 
     .techstack-icon-row {
@@ -355,6 +423,22 @@ body {
     }
 
     .btn-bracket:hover::after {
+        opacity: 1;
+        transform: translateX(3px);
+    }
+
+    /* Touch feedback: the button "opens" on press too, since :hover never
+       fires on touch devices — a tap gets the same acknowledgment as a hover. */
+    .btn-bracket:active .btn-bracket-corner {
+        opacity: 1;
+    }
+
+    .btn-bracket:active::before {
+        opacity: 1;
+        transform: translateX(-3px);
+    }
+
+    .btn-bracket:active::after {
         opacity: 1;
         transform: translateX(3px);
     }

@@ -1,8 +1,8 @@
 import MagneticButton from "./MagneticButton";
 import SocialIcon from "./socialMediaIcons";
-import TelemetryBlock from "./TelemetryBlock";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Instagram } from "lucide-react";
 import { fetchTechStack } from "../lib/dataService";
 import { publicUrl } from "../lib/assets";
 
@@ -49,8 +49,6 @@ export const About = () => {
   }, []);
 
   const { language, library, framework, software } = techData;
-
-  const moduleCount = language.length + library.length + framework.length + software.length;
 
   // Helper component for tech icons with error handling
   const TechIcon = ({ tech, className }) => {
@@ -112,8 +110,57 @@ export const About = () => {
       </li>
     </ul>
   );
+
+  // Desktop-only variants: same real content, with a mono "timestamp tag"
+  // above each entry for the terminal-HUD treatment. Mobile keeps the
+  // simpler list above.
+  const educationContentDesktop = (
+    <ul className="space-y-6 font-body text-gray-300 text-start">
+      <li className="flex flex-col items-start gap-1.5 text-base leading-relaxed">
+        <span className="font-mono uppercase text-[10px] px-2 py-0.5 bg-bright-purple/10 text-bright-purple border border-bright-purple/20">
+          TIMESTAMP :: 2024.CURR
+        </span>
+        <span>
+          Institute of Technical Research and Education, Bhubaneshwar (B.Tech){" "}
+          <span className="text-green font-semibold">GPA: 9.68/10</span>
+        </span>
+      </li>
+      <li className="flex flex-col items-start gap-1.5 text-base leading-relaxed">
+        <span className="font-mono uppercase text-[10px] px-2 py-0.5 bg-white/5 text-gray-400 border border-white/10">
+          TIMESTAMP :: 2022.2024
+        </span>
+        <span>
+          Mother's Public School, Bhubaneshwar (CBSE){" "}
+          <span className="text-green font-semibold">86%</span>
+        </span>
+      </li>
+      <li className="flex flex-col items-start gap-1.5 text-base leading-relaxed">
+        <span className="font-mono uppercase text-[10px] px-2 py-0.5 bg-white/5 text-gray-400 border border-white/10">
+          TIMESTAMP :: SECONDARY
+        </span>
+        <span>
+          Don Bosco Academy, Patna (ICSE){" "}
+          <span className="text-green font-semibold">96%</span>
+        </span>
+      </li>
+    </ul>
+  );
+
+  const experienceContentDesktop = (
+    <ul className="space-y-6 font-body text-gray-300 text-start">
+      <li className="flex flex-col items-start gap-1.5 text-base leading-relaxed">
+        <span className="font-mono uppercase text-[10px] px-2 py-0.5 bg-bright-purple/10 text-bright-purple border border-bright-purple/20">
+          DURATION :: 45.DAYS
+        </span>
+        <span>Machine Learning Intern at Elevate Labs</span>
+      </li>
+    </ul>
+  );
+
   const panelClasses =
-    "cursor-target group relative border border-white/10 backdrop-blur-sm bg-[#1a1a1a]/40 hover:backdrop-blur-xl inset-0 shadow-xl transform transition-all duration-500 ease-out";
+    "cursor-target group glass-panel relative shadow-xl transform transition-all duration-500 ease-out";
+  // Desktop bento panels get the rare border-glitch blip; mobile stays calmer.
+  const panelClassesDesktop = `${panelClasses} panel-glitch`;
   const cardClasses = `${panelClasses} p-4 flex items-center justify-center`;
   const barClasses = panelClasses;
   const targetLock = (
@@ -127,6 +174,7 @@ export const About = () => {
       id="about"
       className="relative flex flex-col justify-center items-center min-h-screen w-full px-4 mb-8 sm:px-5 text-center"
     >
+      <div className="crt-overlay terminal-flicker" aria-hidden="true" />
       <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl z-2 mb-6">About Me</h2>
       <div className="w-full max-w-7xl z-2">
         {/* Mobile Layout */}
@@ -152,7 +200,7 @@ export const About = () => {
                   ></SocialIcon>
                 </MagneticButton>
               </div>
-              <div className="flex-1 flex items-center justify-center py-4">
+              <div className="flex-1 flex items-center justify-center py-4 border-r border-white/10">
                 <MagneticButton>
                   <SocialIcon
                     className="invert h-8 w-8 sm:h-10 sm:w-10"
@@ -160,6 +208,21 @@ export const About = () => {
                     src={publicUrl("icons/linkedin.svg")}
                     alt="LinkedIn profile"
                   ></SocialIcon>
+                </MagneticButton>
+              </div>
+              <div className="flex-1 flex items-center justify-center py-4">
+                <MagneticButton>
+                  <motion.a
+                    href="https://www.instagram.com/notsoshaant_/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram profile"
+                    whileHover={{ y: -2, scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <Instagram className="text-white h-8 w-8 sm:h-10 sm:w-10" strokeWidth={1.5} />
+                  </motion.a>
                 </MagneticButton>
               </div>
             </div>
@@ -239,20 +302,20 @@ export const About = () => {
               <div className="w-full flex justify-center gap-2 pb-3 mb-3">
                 <button
                   onClick={() => setActiveTab("education")}
-                  className={`px-3 py-2 cursor-target rounded-full text-sm font-semibold ${
+                  className={`px-3 py-2 cursor-target rounded-full text-sm font-semibold transition-all hover:shadow-[0_0_15px_rgba(154,112,245,0.4)] ${
                     activeTab === "education"
                       ? "bg-bright-purple"
-                      : "bg-white/10"
+                      : "bg-white/10 hover:bg-bright-purple/20"
                   }`}
                 >
                   Education
                 </button>
                 <button
                   onClick={() => setActiveTab("experience")}
-                  className={`px-3 py-2 cursor-target rounded-full text-sm font-semibold ${
+                  className={`px-3 py-2 cursor-target rounded-full text-sm font-semibold transition-all hover:shadow-[0_0_15px_rgba(154,112,245,0.4)] ${
                     activeTab === "experience"
                       ? "bg-bright-purple"
-                      : "bg-white/10"
+                      : "bg-white/10 hover:bg-bright-purple/20"
                   }`}
                 >
                   Experience
@@ -277,16 +340,16 @@ export const About = () => {
 
         {/* Desktop Layout */}
         <div className="hidden lg:grid grid-cols-8 grid-rows-4 gap-2">
-          <div className={`${barClasses} flex flex-row items-stretch col-span-5`}>
+          <div className={`${panelClassesDesktop} flex flex-row items-stretch col-span-5`}>
             {targetLock}
             <div className="flex-1 flex flex-col items-start justify-center px-6 py-4">
-              <h2 className="text-xl text-bright-purple font-bold">
-                Nishant Kumar
+              <h2 className="text-xl text-bright-purple font-bold font-mono tracking-tighter">
+                [ ID: NISHANT_KUMAR ]
               </h2>
               <p className="text-sm text-white">Student & Frontend Developer</p>
               <a className="text-sm text-gray-400">Odisha, India</a>
             </div>
-            <div className="flex items-center justify-center gap-5 px-6 border-l border-white/10">
+            <div className="flex-1 flex items-center justify-center gap-8 px-6 border-l border-white/10">
               <MagneticButton>
                 <SocialIcon
                   className="invert h-7 w-7"
@@ -303,23 +366,28 @@ export const About = () => {
                   alt="LinkedIn profile"
                 ></SocialIcon>
               </MagneticButton>
-            </div>
-            <div className="flex-1 items-center justify-center px-6 border-l border-white/10 hidden lg:flex">
-              <TelemetryBlock
-                lines={[
-                  ["SYS.PAGE", "ABOUT.ME"],
-                  ["SYS.MODULES", `${moduleCount} LOADED`],
-                ]}
-              />
+              <MagneticButton>
+                <motion.a
+                  href="https://www.instagram.com/notsoshaant_/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram profile"
+                  whileHover={{ y: -2, scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  <Instagram className="text-white h-7 w-7" strokeWidth={1.5} />
+                </motion.a>
+              </MagneticButton>
             </div>
           </div>
           <div
-            className={`${cardClasses} grid-row-1 items-start pt-8 col-span-3 row-span-4`}
+            className={`${panelClassesDesktop} grid-row-1 items-start pt-8 col-span-3 row-span-4`}
           >
             {targetLock}
             <div className="techstack">
               <section>
-                <h2 className="techstack-label">Languages</h2>
+                <h2 className="techstack-label font-mono text-bright-purple">[ CAT: LANGUAGES ]</h2>
                 <div className="techstack-icon-row">
                   {language.map((tech, i) => (
                     <MagneticButton key={i}>
@@ -331,7 +399,7 @@ export const About = () => {
                 </div>
               </section>
               <section>
-                <h2 className="techstack-label">Libraries</h2>
+                <h2 className="techstack-label font-mono text-bright-purple">[ CAT: LIBRARIES ]</h2>
                 <div className="techstack-icon-row">
                   {library.map((tech, i) => (
                     <MagneticButton key={i}>
@@ -343,7 +411,7 @@ export const About = () => {
                 </div>
               </section>
               <section>
-                <h2 className="techstack-label">Frameworks</h2>
+                <h2 className="techstack-label font-mono text-bright-purple">[ CAT: FRAMEWORKS ]</h2>
                 <div className="techstack-icon-row">
                   {framework.map((tech, i) => (
                     <MagneticButton key={i}>
@@ -355,7 +423,7 @@ export const About = () => {
                 </div>
               </section>
               <section>
-                <h2 className="techstack-label">Software</h2>
+                <h2 className="techstack-label font-mono text-bright-purple">[ CAT: SOFTWARE ]</h2>
                 <div className="techstack-icon-row">
                   {software.map((tech, i) => (
                     <MagneticButton key={i}>
@@ -369,30 +437,30 @@ export const About = () => {
             </div>
           </div>
 
-          <div className={`${cardClasses} col-span-5 row-span-3`}>
+          <div className={`${panelClassesDesktop} col-span-5 row-span-3 p-2`}>
             {targetLock}
             <div className="flex flex-col h-full">
               {/* Tabs */}
-              <div className="w-full flex-center gap-2 pb-2 mb-2">
+              <div className="w-full flex-center gap-2 pt-6 pb-2 mb-2">
                 <button
                   onClick={() => setActiveTab("education")}
-                  className={`px-3 py-1 cursor-target rounded-full text-sm font-semibold ${
+                  className={`px-6 py-2 cursor-target font-mono text-xs uppercase font-bold border transition-all ${
                     activeTab === "education"
-                      ? "bg-bright-purple"
-                      : "bg-white/10"
+                      ? "border-bright-purple bg-bright-purple/20 text-white hover:bg-bright-purple/30 hover:shadow-[0_0_20px_rgba(154,112,245,0.4)]"
+                      : "border-white/10 bg-transparent text-white/50 hover:text-white hover:border-bright-purple/40 hover:bg-bright-purple/10 hover:shadow-[0_0_15px_rgba(154,112,245,0.2)]"
                   }`}
                 >
-                  Education
+                  [ 01. EDUCATION ]
                 </button>
                 <button
                   onClick={() => setActiveTab("experience")}
-                  className={`px-3 py-1 cursor-target rounded-full text-sm font-semibold ${
+                  className={`px-6 py-2 cursor-target font-mono text-xs uppercase font-bold border transition-all ${
                     activeTab === "experience"
-                      ? "bg-bright-purple"
-                      : "bg-white/10"
+                      ? "border-bright-purple bg-bright-purple/20 text-white hover:bg-bright-purple/30 hover:shadow-[0_0_20px_rgba(154,112,245,0.4)]"
+                      : "border-white/10 bg-transparent text-white/50 hover:text-white hover:border-bright-purple/40 hover:bg-bright-purple/10 hover:shadow-[0_0_15px_rgba(154,112,245,0.2)]"
                   }`}
                 >
-                  Experience
+                  [ 02. EXPERIENCE ]
                 </button>
               </div>
 
@@ -402,12 +470,12 @@ export const About = () => {
                 initial="hidden"
                 animate="visible"
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex flex-col flex-1 justify-center"
+                className="flex flex-col flex-1 justify-center px-6 pb-6"
                 style={{ minHeight: "120px" }}
               >
                 {activeTab === "education"
-                  ? educationContent
-                  : experienceContent}
+                  ? educationContentDesktop
+                  : experienceContentDesktop}
               </motion.div>
             </div>
           </div>
