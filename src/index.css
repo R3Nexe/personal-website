@@ -526,6 +526,122 @@ body {
         left: 40px;
     }
 
+    /* ── Singularity Intake loader ──────────────────────────────────────────
+       A black-hole loading screen. Everything reads off two inline CSS vars the
+       React component keeps live: --charge (0→1, the collapse progress) and
+       --chaos (0→1, eased) which drives how violent the motion gets as the site
+       "falls in". The looping animations here are all neutralised by the global
+       prefers-reduced-motion block below, so the reduced-motion frame is still. */
+
+    /* The 64px HUD grid, but masked to a hole in the middle (matter has already
+       fallen past the horizon) and slowly breathing. It spins/scales faster the
+       closer we get to the singularity. */
+    .loader-grid-warp {
+        @apply fixed pointer-events-none;
+        inset: -50%;
+        width: 200%;
+        height: 200%;
+        background-image:
+            linear-gradient(to right, rgba(154, 112, 245, 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(154, 112, 245, 0.05) 1px, transparent 1px);
+        background-size: 64px 64px;
+        -webkit-mask-image: radial-gradient(circle at center, transparent 0%, black 55%);
+        mask-image: radial-gradient(circle at center, transparent 0%, black 55%);
+        filter: blur(1px);
+        transform-origin: center;
+        animation: loader-grid-breathe var(--warp-speed, 9s) ease-in-out infinite;
+    }
+
+    @keyframes loader-grid-breathe {
+        0%, 100% { transform: scale(1) rotate(0deg); }
+        50% { transform: scale(1.06) rotate(calc(var(--chaos, 0) * 2deg)); }
+    }
+
+    /* The central shake target. Amplitude and speed both climb with --chaos, so
+       the core sits dead-still at 0% and judders hard as it breaches. The corner
+       brackets / telemetry stay pinned (a steady instrument reading a wild core). */
+    .loader-stage {
+        animation: loader-tremor var(--tremor-speed, 0.14s) steps(2, end) infinite;
+    }
+
+    @keyframes loader-tremor {
+        0% { transform: translate(0, 0); }
+        25% { transform: translate(calc(var(--amp, 0) * -1px), calc(var(--amp, 0) * 1px)); }
+        50% { transform: translate(calc(var(--amp, 0) * 1px), calc(var(--amp, 0) * -1px)); }
+        75% { transform: translate(calc(var(--amp, 0) * 1px), calc(var(--amp, 0) * 1px)); }
+        100% { transform: translate(0, 0); }
+    }
+
+    /* Pure-black event-horizon disc. Size + glow are set inline from progress. */
+    /* Fixed box at max size; growth is a compositor-only transform: scale, never
+       an animated width/height (which would thrash layout every progress tick). */
+    .loader-core {
+        @apply relative rounded-full;
+        background: #000000;
+        will-change: transform;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .loader-lensing-ring {
+        @apply absolute rounded-full;
+        inset: -2px;
+        border: 1px solid rgba(154, 112, 245, 0.8);
+        animation: loader-ring-spin var(--ring-speed, 10s) linear infinite;
+    }
+
+    @keyframes loader-ring-spin {
+        0% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(180deg) scale(calc(1 + var(--chaos, 0) * 0.12)); }
+        100% { transform: rotate(360deg) scale(1); }
+    }
+
+    /* Big Orbitron readout. RGB-split chromatic glitch that fires more often as
+       chaos rises (--glitch-speed shrinks); goes green-tinged past the horizon. */
+    .loader-percent {
+        @apply font-head font-bold tracking-tighter;
+        color: var(--color-white);
+        animation: loader-glitch var(--glitch-speed, 5s) steps(1, end) infinite;
+    }
+
+    @keyframes loader-glitch {
+        0%, 92% { text-shadow: none; transform: translate(0, 0); }
+        93% { text-shadow: -2px 0 0 rgba(154, 112, 245, 0.9), 2px 0 0 rgba(130, 255, 158, 0.85); transform: translate(calc(var(--chaos, 0) * 2px), 0); }
+        95% { text-shadow: 2px 0 0 rgba(154, 112, 245, 0.9), -2px 0 0 rgba(130, 255, 158, 0.85); transform: translate(calc(var(--chaos, 0) * -2px), 0); }
+        97%, 100% { text-shadow: none; transform: translate(0, 0); }
+    }
+
+    .loader-telemetry {
+        @apply fixed z-20 font-mono uppercase select-none pointer-events-none;
+        font-size: 10px;
+        line-height: 1.9;
+        letter-spacing: 0.12em;
+    }
+
+    .loader-cursor {
+        display: inline-block;
+        width: 6px;
+        height: 11px;
+        margin-left: 2px;
+        background: rgba(234, 234, 234, 0.4);
+        animation: hud-pulse 0.9s step-end infinite;
+        vertical-align: -1px;
+    }
+
+    /* Terminal white-out: at 100% the core collapses and the whole void flashes
+       once before the overlay fades to reveal the site. */
+    .loader-flash {
+        @apply fixed inset-0 pointer-events-none;
+        background: radial-gradient(circle at center, rgba(234, 234, 234, 0.95) 0%, rgba(154, 112, 245, 0.6) 30%, transparent 70%);
+        opacity: 0;
+        animation: loader-flash 0.6s ease-out forwards;
+    }
+
+    @keyframes loader-flash {
+        0% { opacity: 0; transform: scale(0.2); }
+        45% { opacity: 1; transform: scale(1.1); }
+        100% { opacity: 0; transform: scale(1.6); }
+    }
+
 }
 
 /* On-brand keyboard focus. The custom cursor hides the system pointer, so a
