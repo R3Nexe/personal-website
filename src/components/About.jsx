@@ -175,7 +175,17 @@ export const About = () => {
       className="relative flex flex-col justify-center items-center min-h-screen w-full px-4 mb-8 sm:px-5 text-center"
     >
       <div className="crt-overlay terminal-flicker" aria-hidden="true" />
-      <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl z-2 mb-6">About Me</h2>
+      <div className="relative mb-6">
+        <span
+          className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 w-1/4 h-[1px] bg-gradient-to-r from-transparent to-bright-purple/10"
+          aria-hidden="true"
+        />
+        <span
+          className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-1/4 h-[1px] bg-gradient-to-l from-transparent to-bright-purple/10"
+          aria-hidden="true"
+        />
+        <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl z-2">About Me</h2>
+      </div>
       <div className="w-full max-w-7xl z-2">
         {/* Mobile Layout */}
         <div className="block lg:hidden space-y-4">

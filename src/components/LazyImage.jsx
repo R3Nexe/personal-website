@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-export const LazyImage = ({ src, alt, className }) => {
+export const LazyImage = ({ src, alt, className, imgClassName = "" }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div className={`relative overflow-hidden w-full rounded-xl bg-white/5 ${!isLoaded ? "min-h-[200px] md:min-h-[300px]" : ""} ${className}`}>
+    <div className={`relative overflow-hidden w-full rounded-2xl bg-white/5 ${!isLoaded ? "min-h-[200px] md:min-h-[300px]" : ""} ${className}`}>
       {/* Skeleton / Placeholder */}
       {!isLoaded && (
         <motion.div
@@ -22,7 +22,7 @@ export const LazyImage = ({ src, alt, className }) => {
       <img
         src={src}
         alt={alt}
-        className={`w-full h-auto block transition-opacity duration-700 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+        className={`w-full h-auto block transition-opacity duration-700 ${isLoaded ? "opacity-100" : "opacity-0"} ${imgClassName}`}
         onLoad={() => setIsLoaded(true)}
         loading="lazy"
       />

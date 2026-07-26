@@ -6,6 +6,7 @@ import TextType from "../components/TextType";
 import TelemetryBlock from "../components/TelemetryBlock";
 import { About } from "../components/About";
 import { VideoBackground } from "../components/VideoBg";
+import HeroBlueprintOverlay from "../components/HeroBlueprintOverlay";
 
 const formatClock = (date) =>
   date.toLocaleTimeString("en-GB", {
@@ -95,6 +96,7 @@ const Home = () => {
   return (
     <>
       <VideoBackground />
+      <HeroBlueprintOverlay />
       {/* Hero Section */}
       <motion.section
         id="hero"
@@ -144,7 +146,17 @@ const Home = () => {
           </motion.div>
 
           <motion.div className="mt-6" variants={heroItem}>
-            <Button />
+            <span className="relative inline-block">
+              <span
+                className="hidden lg:block absolute -left-10 top-1/2 w-6 h-[1px] bg-bright-purple/20"
+                aria-hidden="true"
+              />
+              <span
+                className="hidden lg:block absolute -right-10 top-1/2 w-6 h-[1px] bg-bright-purple/20"
+                aria-hidden="true"
+              />
+              <Button />
+            </span>
           </motion.div>
         </motion.div>
       </motion.section>

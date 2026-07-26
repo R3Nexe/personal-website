@@ -62,26 +62,35 @@ export default function Gallery() {
         </div>
 
         {/* Masonry layout */}
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 pb-24">
+        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-2 pb-24">
           {isLoading
             ? SKELETON_HEIGHTS.map((height, idx) => (
                 <div
                   key={idx}
-                  className="break-inside-avoid mb-4 rounded-xl bg-white/5 animate-pulse"
+                  className="break-inside-avoid mb-2 rounded-2xl bg-white/5 animate-pulse"
                   style={{ height }}
                 />
               ))
             : filteredTools.map((item, idx) => (
                 <div
                   key={idx}
-                  className="break-inside-avoid cursor-pointer mb-4 hover:opacity-70 transition"
+                  className="break-inside-avoid relative group cursor-pointer mb-2 overflow-hidden rounded-2xl"
                   onClick={() => setSelectedImage(item.publicUrl)}
                 >
                   <LazyImage
                     src={item.publicUrl}
                     alt={item.title}
                     className="shadow-md"
+                    imgClassName="transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-[0_12px_28px_rgba(154,112,245,0.2)]"
                   />
+                  {/* Pinterest-style hover reveal: category tag */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex flex-col justify-end p-4">
+                    {item.categories?.[0] && (
+                      <span className="self-start font-mono text-[10px] tracking-widest text-bright-purple/90 uppercase bg-black/40 backdrop-blur-sm px-2 py-0.5 border-l border-bright-purple">
+                        {item.categories[0]}
+                      </span>
+                    )}
+                  </div>
                 </div>
               ))}
         </div>
