@@ -1,4 +1,10 @@
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+  useMotionValue,
+} from "framer-motion";
 import { publicUrl } from "../lib/assets";
 import { useState, useEffect, useRef } from "react";
 
@@ -26,6 +32,41 @@ export const VideoBackground = () => {
     prefersReducedMotion ? [1, 1] : [1, 0.5]
   );
   const opacityValue = useTransform(scrollYProgress, [0, 1], [1, 1]);
+
+  // Cockpit turbulence: a jittery buffeting of the whole backdrop, as if the
+  // craft is rattling under gravitational stress near the accretion disk. The
+  // offset SNAPS to a fresh random value every STEP ms (rather than easing) so
+  // it reads as a hard vibration, not a smooth float. Applied to an oversized
+  // wrapper (below) so the jitter never exposes the void behind the video.
+  const shakeX = useMotionValue(0);
+  const shakeY = useMotionValue(0);
+  const shakeRot = useMotionValue(0);
+
+  useEffect(() => {
+    // Reduced motion: hold perfectly still — no gravitational buffeting.
+    if (prefersReducedMotion) return;
+
+    const AMP = 2; // px — peak positional jolt
+    const ROT = 0.3; // deg — peak rotational jolt
+    const STEP = 50; // ms between jolts — lower = more frantic
+    const rand = (m) => (Math.random() * 2 - 1) * m;
+
+    let raf = 0;
+    let last = -Infinity;
+
+    const loop = (t) => {
+      if (t - last >= STEP) {
+        last = t;
+        shakeX.set(rand(AMP));
+        shakeY.set(rand(AMP));
+        shakeRot.set(rand(ROT));
+      }
+      raf = requestAnimationFrame(loop);
+    };
+
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [prefersReducedMotion, shakeX, shakeY, shakeRot]);
 
   const videoRef = useRef(null);
   const [videoError, setVideoError] = useState(null);
@@ -115,44 +156,50 @@ export const VideoBackground = () => {
   };
 
   return (
-    <div className="fixed h-screen w-full top-0 left-0 z-[0]">
-      {videoError ? (
-        // Fallback when the video fails: stay in the Event Horizon world — the
-        // void with a faint nebula-purple gravity-well where the disk would be.
-        <div
-          className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
-          style={{
-            height: '100vh',
-            background:
-              'radial-gradient(circle at 50% 45%, rgba(154, 112, 245, 0.18), #000000 60%)',
-          }}
-        >
-          <div className="absolute inset-0 bg-black/25"></div>
-        </div>
-      ) : (
-        <motion.video
-          ref={videoRef}
-          style={{
-            scale: scaleValue,
-            opacity: opacityValue,
-          }}
-          initial={{scale:0}}
-          animate={{scale:1}}
-          transition={{duration:1.2}}
-          autoPlay={!prefersReducedMotion}
-          loop={!prefersReducedMotion}
-          muted
-          playsInline
-          preload="auto"
-          className="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2 object-cover"
-          onError={handleVideoError}
-          onLoadedData={handleVideoLoad}
-          onCanPlay={handleVideoCanPlay}
-        >
-          <source src={videoUrl} type="video/webm" />
-          Your browser does not support the video tag.
-        </motion.video>
-      )}
+    <div className="fixed h-screen w-full top-0 left-0 z-[0] overflow-hidden">
+      {/* Oversized so the cockpit turbulence (x / y / rotate) can drift without
+          ever revealing the black void behind the backdrop. */}
+      <motion.div
+        className="absolute -inset-[2.5%]"
+        style={{ x: shakeX, y: shakeY, rotate: shakeRot }}
+      >
+        {videoError ? (
+          // Fallback when the video fails: stay in the Event Horizon world — the
+          // void with a faint nebula-purple gravity-well where the disk would be.
+          <div
+            className="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2"
+            style={{
+              background:
+                'radial-gradient(circle at 50% 45%, rgba(154, 112, 245, 0.18), #000000 60%)',
+            }}
+          >
+            <div className="absolute inset-0 bg-black/25"></div>
+          </div>
+        ) : (
+          <motion.video
+            ref={videoRef}
+            style={{
+              scale: scaleValue,
+              opacity: opacityValue,
+            }}
+            initial={{scale:0}}
+            animate={{scale:1}}
+            transition={{duration:1.2}}
+            autoPlay={!prefersReducedMotion}
+            loop={!prefersReducedMotion}
+            muted
+            playsInline
+            preload="auto"
+            className="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2 object-cover"
+            onError={handleVideoError}
+            onLoadedData={handleVideoLoad}
+            onCanPlay={handleVideoCanPlay}
+          >
+            <source src={videoUrl} type="video/webm" />
+            Your browser does not support the video tag.
+          </motion.video>
+        )}
+      </motion.div>
       <div className="absolute top-0 left-0 h-full w-full bg-black/25"></div>
     </div>
   );

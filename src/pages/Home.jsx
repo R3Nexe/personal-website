@@ -21,8 +21,7 @@ const formatClock = (date) =>
 // identity, and fresh objects each render would reset the timer before it advances.
 const HERO_TAGLINES = [
   "I Ship Pixels & Predictions",
-  "Turns Coffee Into Commits",
-  "console.log('hire me')",
+  "From Coffee to Commits",
   "Code • Design • Data",
   "Engineering curiosity into code"
 
