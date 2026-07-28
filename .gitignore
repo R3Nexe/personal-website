@@ -28,3 +28,22 @@ dist-ssr
 .playwright-mcp/
 inspo/
 .superdesign
+# Added by code-review-graph
+.code-review-graph/
+
+# AI assistant / editor tooling configs (per-machine, not project source)
+.claude/
+.codebuddy/
+.cursor/
+.cursorrules
+.gemini/
+.kiro/
+.qoder/
+.windsurfrules
+.mcp.json
+.github/code-review-graph.instruction.md
+AGENTS.md
+CODEBUDDY.md
+GEMINI.md
+QODER.md
+opencode.jsonc
