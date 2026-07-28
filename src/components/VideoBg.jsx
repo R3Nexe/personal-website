@@ -7,6 +7,7 @@ import {
 } from "framer-motion";
 import { publicUrl } from "../lib/assets";
 import { useState, useEffect, useRef } from "react";
+import { useSiteReady } from "../context/SiteReadyContext";
 
 // Error logging utility for video operations
 const logVideoError = (context, error, additionalInfo = {}) => {
@@ -23,13 +24,20 @@ const logVideoError = (context, error, additionalInfo = {}) => {
 };
 
 export const VideoBackground = () => {
+  // Holds the zoom-in reveal until the loader clears, so it plays in view
+  // instead of finishing behind the opaque loading screen.
+  const ready = useSiteReady();
   const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
-  // Reduced motion: hold scale steady so scroll no longer drives a parallax zoom.
+  // Scroll parallax must NEVER scale below 1: the accretion-disk backdrop has to
+  // stay full-bleed at every scroll position, or the void bleeds in around a
+  // shrinking video (reads as the background "cutting off" on scroll, worst on
+  // mobile). So the disk gently zooms IN as you descend — pulled toward the
+  // singularity — always covering. Reduced motion holds it perfectly still.
   const scaleValue = useTransform(
     scrollYProgress,
     [0, 1],
-    prefersReducedMotion ? [1, 1] : [1, 0.5]
+    prefersReducedMotion ? [1, 1] : [1, 1.12]
   );
   const opacityValue = useTransform(scrollYProgress, [0, 1], [1, 1]);
 
@@ -46,7 +54,6 @@ export const VideoBackground = () => {
     // Reduced motion: hold perfectly still — no gravitational buffeting.
     if (prefersReducedMotion) return;
 
-   
     const AMP = 1; // px — peak positional jolt
     const ROT = 0.3; // deg — peak rotational jolt
     const STEP = 45; // ms between jolts — lower = more frantic
@@ -157,7 +164,7 @@ export const VideoBackground = () => {
   };
 
   return (
-    <div className="fixed h-screen w-full top-0 left-0 z-[0] overflow-hidden">
+    <div className="fixed h-lvh w-full top-0 left-0 z-[0] ">
       {/* Oversized so the cockpit turbulence (x / y / rotate) can drift without
           ever revealing the black void behind the backdrop. */}
       <motion.div
@@ -184,7 +191,7 @@ export const VideoBackground = () => {
               opacity: opacityValue,
             }}
             initial={{scale:0}}
-            animate={{scale:1}}
+            animate={{scale: ready ? 1 : 0}}
             transition={{duration:1.2}}
             autoPlay={!prefersReducedMotion}
             loop={!prefersReducedMotion}

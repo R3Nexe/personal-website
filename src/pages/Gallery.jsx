@@ -62,7 +62,7 @@ export default function Gallery() {
         </div>
 
         {/* Masonry layout */}
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-2 pb-24">
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-2 pb-24">
           {isLoading
             ? SKELETON_HEIGHTS.map((height, idx) => (
                 <div
